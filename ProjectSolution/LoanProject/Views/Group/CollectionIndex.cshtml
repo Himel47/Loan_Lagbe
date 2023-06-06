@@ -1,0 +1,67 @@
+﻿@using LoanData.Models.Group;
+
+@model List<CollectionGroup>;
+
+<div class="container-fluid text-right">
+    <div class="d-flex justify-content-between">
+        <h2 class=" mb-3">Collection Groups</h2>
+
+        <a class="btn btn-outline-success btn-sm mb-4 mt-2" asp-controller="Group" asp-action="AddGroup">Add New Group</a>
+    </div>
+    <hr />
+    <div class="my-5">
+        @if (Model.Count != 0)
+        {
+            <table class="table table-striped table-bordered">
+                <thead class="text-center bg-secondary">
+                    <tr>
+                        <th>Group ID</th>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Creation Time</th>
+                        <th>Member Details</th>
+                        <th>Collection Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody class="p-3">
+                    @foreach (var group in Model)
+                    {
+                        <tr>
+                            <td>@group.CollectionGroupId</td>
+                            <td>@group.CollectionGroupName</td>
+                            <td>@group.Location</td>
+                            <td>@group.CreatedAt</td>
+                            <td><a class="text-decoration-none" asp-action="GroupMemberList">View Members</a></td>
+                            <td>@group.CollectedMoney</td>
+                            <td class="text-center">
+                                <div class="btn btn-group gap-3">
+                                    <a class="text-decoration-none" 
+                                        asp-route-groupId="@group.CollectionGroupId"
+                                        asp-route-groupTypeId="2"
+                                        asp-action="GetGroupDetails">
+                                        Details
+                                    </a> | 
+                                    <a class="text-decoration-none"
+                                        asp-route-groupId="@group.CollectionGroupId"
+                                        asp-route-groupTypeId="2"
+                                        asp-action="EditGroupInfo">
+                                        Edit
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="text-center row">
+                <h2 class="text-center text-danger fw-bold">EMPTY</h2>
+                <span class="text-center">No Colection Group created Yet!</span>
+            </div>
+        }
+    </div>
+</div>

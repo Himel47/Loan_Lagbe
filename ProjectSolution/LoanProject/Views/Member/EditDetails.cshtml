@@ -1,0 +1,114 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model LoanData.Models.Member.MemberBase
+<style>
+    .card {
+        background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("https://imagetolink.com/ib/AiQx0pIRKB.jpg");
+        background-size: cover;
+        background-position: center center;
+    }
+
+    body {
+        background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("https://imagetolink.com/ib/2lRIIHG5uD.jpg");
+        background-size: cover;
+        background-position: absolute;
+    }
+</style>
+
+<body>
+    <div class="card">
+        <div class="card-header gap-2 d-flex align-items-center">
+            <p class="mt-1">Profile NID:</p>
+            <h3>@Model.NID</h3>
+        </div>
+        <form method="post" action="EditDetails" class="card-body box-shadow rounded-2">
+            <div class="form-control box-shadow border-0 mb-2">
+                <div class="mb-3">
+                    <label for="" class="form-label">Name</label>
+                    <input type="text" class="form-control" asp-for="Name">
+                </div>
+                <div class="mb-3 d-flex justify-content-between gap-1">
+                    <div class="col-6">
+                        <label for="" class="form-label">NID</label>
+                        <input type="text" class="form-control" asp-for="NID" readonly>
+                    </div>
+                    <div class="col-5">
+                        <label for="" class="form-label col-11">Contact</label>
+                        <input type="text" class="form-control" asp-for="Phone">
+                    </div>
+                </div>
+                <div class="mb-3 d-flex justify-content-between">
+                    <div class="col-5">
+                        <label for="" class="form-label">Father Name</label>
+                        <input type="text" class="form-control" asp-for="FatherName">
+                    </div>
+                    <div class="col-5">
+                        <label for="" class="form-label col-6">Mother Name</label>
+                        <input type="text" class="form-control" asp-for="MotherName">
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="" class="form-label col-6">Date of Birth</label>
+                    <input type="date" class="form-control text-secondary" asp-for="DOB">
+                </div>
+                <div class="mb-3 d-flex justify-content-between gap-md-1">
+                    <div class="col-6">
+                        <label for="" class="form-label">Occupation</label>
+                        <input type="text" class="form-control" asp-for="Occupation">
+                    </div>
+                    <div class="col-5">
+                        <label for="" class="form-label">Last Educational Degree</label>
+                        <input type="text" class="form-control" asp-for="Education">
+                    </div>
+                </div>
+                <div class="mb-3 col-8">
+                    <label for="" class="form-label">Institution</label>
+                    <input type="text" class="form-control" asp-for="Institute">
+                </div>
+            </div>
+            <div class="form-control box-shadow border-0 mb-2">
+                <div class="mb-3">
+                    <label for="" class="form-label">Marital Status</label>
+                    <input type="text" class="form-control" asp-for="MaritalStatus">
+                </div>
+                <div class="mb-3 d-flex justify-content-between gap-2">
+                    <div class="col-6">
+                        <label for="" class="form-label">Spouse Name</label>
+                        <input type="text" class="form-control" asp-for="SName" readonly>
+                    </div>
+                    <div class="col-5">
+                        <label for="" class="form-label col-6">Occupation</label>
+                        <input type="text" class="form-control" asp-for="SOccupation" readonly>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label for="" class="form-label col-6">Date Of Birth</label>
+                    <input type="date" class="form-control text-secondary" asp-for="SDOB" readonly>
+                </div>
+            </div>
+            <div class="form-control box-shadow border-0 mb-2">
+                <div class="mb-3">
+                    <label for="" class="form-label">No. of Family Member/s</label>
+                    <input type="number" class="form-control" asp-for="TotalFamilyMember" min="0">
+                </div>
+                <div class="mb-3 d-flex justify-content-between">
+                    <div class="col-5">
+                        <label for="" class="form-label">Earning member of Family</label>
+                        <input type="number" class="form-control" asp-for="NoOfEarningMember" min="0">
+                    </div>
+                    <div class="col-5">
+                        <label for="" class="form-label col-6">Monthly Salary</label>
+                        <input type="text" class="form-control" asp-for="MonthlyIncome">
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-group">
+                <button type="submit" class="btn btn-outline-success">Update Details</button>
+                <a asp-action="Index" asp-controller="Member" class="btn btn-outline-secondary bi bi-backspace px-3 ms-2"> Back To List</a>
+            </button>
+        </form>
+    </div>
+</body>

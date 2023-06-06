@@ -1,0 +1,92 @@
+﻿@using LoanData.ViewModels;
+
+@model GroupDetailsViewModel
+
+<div class="container card p-3">
+    @if (Model.CollectionGroup == null)
+    {
+        <h2>Loan Group Details: <u>@Model.LoanGroup.LoanGroupName</u></h2>
+        <hr />
+        <div class=" d-flex justify-content-between card-body">
+            <div class="col-8">
+                <div class="row">
+                    <div class="d-flex">
+                        <p class="col-4">Group Id</p>
+                        <p class="col-1">-</p>
+                        <p class="col-7">@Model.LoanGroup.LoanGroupId</p>
+                    </div>
+                    <div class="d-flex">
+                        <p class="col-4">Group Name</p>
+                        <p class="col-1">-</p>
+                        <p class="col-7">@Model.LoanGroup.LoanGroupName</p>
+                    </div>
+                    <div class="d-flex">
+                        <p class="col-4">Group Forming Location</p>
+                        <p class="col-1">-</p>
+                        <p class="col-7">@Model.LoanGroup.Location</p>
+                    </div>
+                    <div class="d-flex">
+                        <p class="col-4">Forming Date</p>
+                        <p class="col-1">-</p>
+                        <p class="col-7">@Model.LoanGroup.CreatedAt.ToLongDateString()</p>
+                    </div>
+                    <div class="d-flex">
+                        <p class="col-4">Updated Date</p>
+                        <p class="col-1">-</p>
+                        <p class="col-7">@(Model.LoanGroup.UpdatedAt == null ? "Not Updated Once!" : Model.LoanGroup.UpdatedAt.ToString())</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <img src="https://imagetolink.com/ib/VDF5FIy6qD.png" height="230" alt="VDF5FIy6qD" />
+            </div>
+        </div>
+        <div class="btn-group gap-2 col-7 justify-content-between">
+            <a class="btn btn-outline-secondary btn-sm rounded-end" asp-action="LoanIndex">Back to Group List</a>
+            <a class="btn btn-outline-info btn-sm rounded-start" asp-route-groupId="@Model.LoanGroup.LoanGroupId" asp-route-groupTypeId="1" asp-action="EditGroupInfo">Edit Details</a>
+        </div>
+    }
+    else if(Model.LoanGroup == null)
+    {
+        <h2>Collection Group Details: <u>@Model.CollectionGroup.CollectionGroupName</u></h2>
+        <hr />
+        <div class=" d-flex justify-content-between card-body">
+            <div class="col-8">
+                <div class="row">
+                    <div class="d-flex">
+                        <p class="col-4">Group Id</p>
+                        <p class="col-1">-</p>
+                        <p class="col-7">@Model.CollectionGroup.CollectionGroupId</p>
+                    </div>
+                    <div class="d-flex">
+                        <p class="col-4">Group Name</p>
+                        <p class="col-1">-</p>
+                        <p class="col-7">@Model.CollectionGroup.CollectionGroupName</p>
+                    </div>
+                    <div class="d-flex">
+                        <p class="col-4">Group Forming Location</p>
+                        <p class="col-1">-</p>
+                        <p class="col-7">@Model.CollectionGroup.Location</p>
+                    </div>
+                    <div class="d-flex">
+                        <p class="col-4">Forming Date</p>
+                        <p class="col-1">-</p>
+                        <p class="col-7">@Model.CollectionGroup.CreatedAt.ToLongDateString()</p>
+                    </div>
+                    <div class="d-flex">
+                        <p class="col-4">Updated Date</p>
+                        <p class="col-1">-</p>
+                        <p class="col-7">@(Model.CollectionGroup.UpdatedAt == null ? "Not Updated Once!" : Model.CollectionGroup.UpdatedAt.ToString())</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <img src="https://imagetolink.com/ib/VDF5FIy6qD.png" height="230" alt="VDF5FIy6qD" />
+            </div>
+        </div>
+        <div class="btn-group gap-2 col-7 justify-content-between">
+            <a class="btn btn-outline-secondary btn-sm rounded-end" asp-action="LoanIndex">Back to Group List</a>
+            <a class="btn btn-outline-info btn-sm rounded-start" asp-route-groupId="@Model.CollectionGroup.CollectionGroupId" asp-route-groupTypeId="2" asp-action="EditGroupInfo">Edit Details</a>
+        </div>
+    }
+</div>

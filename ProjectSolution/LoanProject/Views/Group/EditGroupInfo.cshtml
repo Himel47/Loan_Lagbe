@@ -1,0 +1,66 @@
+﻿@using LoanData.ViewModels;
+
+@model GroupDetailsViewModel
+
+
+<div class="container">
+    <div class="box-shadow border-bottom border-dark">
+        <h2>Edit Details</h2>
+    </div>
+    @if (Model.GroupTypeId == 1)
+    {
+        <div class="col-6 offset-3 card my-3">
+            <div class="card-header"><h3>Team <u>@Model.LoanGroup.LoanGroupName</u></h3></div>
+            <form method="post" asp-controller="Group" asp-action="EditGroupInfo" class="card-body box-shadow rounded-2">
+                <div class="form-control box-shadow border-0 mb-2">
+                    <div class="col-sm-7 mb-3">
+                        <label for="" class="form-label d-flex">Group Id</label>
+                        <input type="text" class="form-control" asp-for="LoanGroup.LoanGroupId" readonly>
+                    </div>
+                    <div class="mb-3 col-8">
+                        <label for="" class="form-label d-flex">Group Name</label>
+                        <input type="text" class="form-control" asp-for="LoanGroup.LoanGroupName" placeholder="Enter Group Name">
+                        <span asp-validation-for="LoanGroup.LoanGroupName" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <label asp-for="LoanGroup.Location" class="form-label d-flex">Location</label>
+                        <input type="text" class="form-control" asp-for="LoanGroup.Location" placeholder="i.e. Dhanmondi, Dhaka">
+                        <span asp-validation-for="LoanGroup.Location" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="btn-group gap-2 mx-3">
+                    <button type="submit" class="btn btn-success btn-sm rounded-end">Submit Details</button>
+                    <a asp-action="LoanIndex" class="btn btn-warning btn-sm rounded-start">Cancel</a>
+                </div>
+            </form>
+        </div>
+    }
+    else if (Model.GroupTypeId == 2)
+    {
+        <div class="col-6 offset-3 card my-3">
+            <div class="card-header"><h3>Team <u>@Model.CollectionGroup.CollectionGroupName</u></h3></div>
+            <form method="post" asp-controller="Group" asp-action="EditGroupInfo" class="card-body box-shadow rounded-2">
+                <div class="form-control box-shadow border-0 mb-2">
+                    <div class="col-sm-7 mb-3">
+                        <label for="" class="form-label d-flex">Group Id</label>
+                        <input type="text" class="form-control" asp-for="CollectionGroup.CollectionGroupId" readonly>
+                    </div>
+                    <div class="mb-3 col-8">
+                        <label for="" class="form-label d-flex">Group Name</label>
+                        <input type="text" class="form-control" asp-for="CollectionGroup.CollectionGroupName" placeholder="Enter Group Name">
+                        <span asp-validation-for="CollectionGroup.CollectionGroupName" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <label asp-for="CollectionGroup.Location" class="form-label d-flex">Location</label>
+                        <input type="text" class="form-control" asp-for="CollectionGroup.Location" placeholder="i.e. Dhanmondi, Dhaka">
+                        <span asp-validation-for="CollectionGroup.Location" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="btn-group gap-2 mx-3">
+                    <button type="submit" class="btn btn-success btn-sm rounded-end">Submit Details</button>
+                    <a asp-action="CollectionIndex" class="btn btn-warning btn-sm rounded-start">Cancel</a>
+                </div>
+            </form>
+        </div>
+    }
+</div>

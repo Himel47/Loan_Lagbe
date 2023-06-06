@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<LoanData.NewMember>
+<style>
+    body {
+        background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.9)), url("https://imagetolink.com/ib/AiQx0pIRKB.jpg");
+        background-size: cover;
+        background-position: absolute;
+    }
+</style>
+<body>
+        
+<div class="container-fluid text-right">
+    <div class="d-flex justify-content-between">
+        <h2 class=" mb-3">Members List</h2>
+
+            <span class="gap-3 mb-4 mt-2">
+                <a class="btn btn-outline-info btn-sm" asp-controller="Member" asp-action="AddMember">Add New Member</a>
+                @*<a class="btn btn-info btn-sm text-dark" asp-controller="Member" asp-action="AddMemberToGroup">Add Member To Group</a>*@
+        </span>
+    </div>
+
+    <table class="table table-striped table-bordered">
+        <thead class="text-center bg-secondary">
+            <tr>
+                <th>NID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Marital Status</th>
+                <th>Family Income</th>
+                <th class="visible">Action</th>
+            </tr>
+        </thead>
+        @Model.Count
+        <tbody class="p-3">
+            @foreach (var member in Model)
+            {
+            <tr>
+                <td>@member.NID</td>
+                <td>@member.Name</td>
+                <td>@member.Phone</td>
+                <td>@member.MaritalStatus.ToString()</td>
+                <td>@member.MonthlyIncome</td>
+                <td class="text-center">
+                    <div class="btn btn-group gap-3">
+                        <a class="text-decoration-none" asp-action="MemberDetails" asp-route-nid="@member.NID">Details</a>
+                        <a class="text-decoration-none" asp-action="EditDetails" asp-route-nid="@member.NID">Edit</a>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+</body>

@@ -1,0 +1,132 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model LoanData.Models.Member.MemberBase
+
+@{
+    ViewData["title"] = Model.Name;
+}
+<style>
+    .card {
+        background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url("https://imagetolink.com/ib/AiQx0pIRKB.jpg");
+        background-size: cover;
+        background-position: center center;
+    }
+
+    body {
+        background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("https://imagetolink.com/ib/2lRIIHG5uD.jpg");
+        background-size: cover;
+        background-position: absolute;
+    }
+</style>
+
+<body>
+    <div action="MemberDetails" class="card">
+        <div class="card-header">
+            <h4 class="mx-3 mt-2">Member Details: <b class="text-secondary">@ViewData["title"]</b></h4>
+        </div>
+        <div class="card-body border-0 p-4">
+            <table class="p-3">
+                <thead>
+                    <th colspan="2">
+                        <h4>Personal Info</h4>
+                        <hr />
+                    </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-secondary fw-bold">Nid Number: </td>
+                        <td colspan="1" class="invisible">gap</td>
+                        <td>@(Model.Name == null ? "-" : Model.Name)</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold text-secondary">Father Name: </td>
+                        <td></td>
+                        <td>@(Model.FatherName == null ? "-" : Model.FatherName)</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold text-secondary">Mother Name: </td>
+                        <td></td>
+                        <td>@(Model.MotherName == null ? "-" : Model.MotherName)</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold text-secondary">Education: </td>
+                        <td></td>
+                        <td>@(Model.Education == null ? "-" : Model.Education)</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold text-secondary">Institution: </td>
+                        <td></td>
+                        <td>@(Model.Institute == null ? "-" : Model.Institute)</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold text-secondary">Phone</td>
+                        <td></td>
+                        <td>@(Model.Phone == null ? "-" : Model.Phone)</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold text-secondary">Occupation: </td>
+                        <td></td>
+                        <td>@(Model.Occupation == null ? "-" : Model.Occupation)</td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <th class="pt-3" colspan="2">
+                        <h4>Marital Status</h4>
+                        <hr />
+                    </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-secondary fw-bold">Marital Status: </td>
+                        <td></td>
+                        <td>@(Model.MaritalStatus == null ? "-" : Model.MaritalStatus)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary fw-bold">Spouse Name: </td>
+                        <td></td>
+                        <td>@(Model.SName == null ? "\t-" : Model.SName)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary fw-bold">Spouse Occupation: </td>
+                        <td></td>
+                        <td>@(Model.SOccupation == null ? "\t-" : Model.SOccupation)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary fw-bold">Nid Number: </td>
+                        <td></td>
+                        <td>@(Model.SDOB == null ? "\t-" : Model.SDOB)</td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <th colspan="2" class="pt-3">
+                        <h4>Family Info</h4>
+                        <hr />
+                    </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-secondary fw-bold">Total Family Member: </td>
+                        <td></td>
+                        <td>@(Model.TotalFamilyMember == 0 ? "0" : Model.TotalFamilyMember)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary fw-bold">Earning Member: </td>
+                        <td></td>
+                        <td>@(Model.NoOfEarningMember == 0 ? "0" : Model.NoOfEarningMember)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary fw-bold">Family Monthly Income:</td>
+                        <td></td>
+                        <td>@(Model.MonthlyIncome == 0 ? "0" : Model.MonthlyIncome)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Index" asp-controller="Member" class="btn btn-outline-secondary btn-sm bi bi-backspace px-3 ms-2"> Back To List</a>
+            <a asp-action="EditDetails" asp-route-nid="@Model.NID" class="btn btn-outline-warning btn-sm bi bi-journal-text px-3 ms-2"> Edit Details</a>
+        </div>
+    </div>
+</body>

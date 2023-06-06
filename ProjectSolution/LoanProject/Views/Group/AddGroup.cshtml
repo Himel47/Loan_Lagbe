@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["title"] = "Group Registration";
+}
+
+@model LoanData.ViewModels.GroupCreatingViewModel
+
+<div class="card col-lg-6 offset-3">
+    <h3 class="card-header">@ViewData["title"]</h3>
+    <form method="post" asp-controller="Group" asp-action="AddGroup" class="card-body box-shadow rounded-2">
+        <div class="form-control box-shadow border-0 mb-2">
+            <div class="col-sm-7 mb-3">
+                <input type="text" class="form-control" asp-for="Id" hidden>
+            </div>
+            <div class="mb-3 col-8">
+                <label for="" class="form-label d-flex" style="margin-bottom:-7px;">Group Name<p class="text-danger">*</p></label>
+                <input type="text" class="form-control" asp-for="Group.GroupName" placeholder="Enter Group Name">
+                <span asp-validation-for="Group.GroupName" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <label asp-for="Group.Location" class="form-label d-flex" style="margin-bottom:-7px;">Location<p class="text-danger">*</p></label>
+                <input type="text" class="form-control" asp-for="Group.Location" placeholder="i.e. Dhanmondi, Dhaka">
+                <span asp-validation-for="Group.Location" class="text-danger"></span>
+            </div>
+            <div class="col-7 mb-3">
+                <label for="" class="form-label d-flex" style="margin-bottom:-7px;">Group Type<p class="text-danger">*</p></label>
+                <select class="col-7 form-select text-secondary" asp-items="Model.GroupTypeList" asp-for="GrouptypeId">
+                    <option value="0">-- Select Group Type --</option>
+                </select>
+                <span asp-validation-for="GrouptypeId" class="text-danger"></span>
+            </div>
+            @*<div class="col-sm-6 mb-2">
+                <label class="form-label col-6">Group Form Time</label>
+                <input type="date" class="form-control" asp-for="Group.CreatedAt" readonly>
+            </div>*@
+        </div>
+        <button type="submit" class="btn btn-outline-success">Submit Details</button>
+    </form>
+</div>

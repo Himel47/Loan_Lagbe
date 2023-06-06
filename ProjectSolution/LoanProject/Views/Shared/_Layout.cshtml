@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LoanProject.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+    <style>
+        .offcanvas-body {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("https://imagetolink.com/ib/RfOYWuIxh0.jpg");
+            background-size: cover;
+            background-position: center center;
+        }
+        .offcanvas{
+            width:55vh;
+        }
+
+        .scrollableOffcanvas {
+            overflow-y: scroll;
+            overscroll-behavior-y: contain;
+            scrollbar-color: unset;
+            scrollbar-width:thin;
+            scrollbar-color: #888888 #ffffff;
+        }
+
+        .scrollableOffcanvas::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scrollableOffcanvas::-webkit-scrollbar-track {
+            background-color: #ffffff;
+        }
+
+        .scrollableOffcanvas::-webkit-scrollbar-thumb {
+            background-color: #888888;
+        }
+
+        .floating {
+            float:left;
+        }
+    </style>
+</head>
+<body>
+    <header class="sticky-top mb-4">
+        <nav class="navbar bg-black">
+            <div class="container-fluid">
+                <button class="navbar-toggler border-dark btn  btn-dark bg-light" data-bs-scroll="true" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <span class="bi bi-grid text-black"></span>
+                </button>
+                <a class="navbar-brand mr-3" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="https://imagetolink.com/ib/ZmV82YtvRv.jpg" height="80" alt="ZmV82YtvRv" />
+                </a>
+                <div class="offcanvas offcanvas-start offcanvas-size-md bg-white" width="150" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header border-bottom">
+                        <button type="button" class="btn-close text-black" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        <h2 class="offcanvas-title" id="offcanvasNavbarLabel">
+                            <img src="https://imagetolink.com/ib/vmffnDWo0w.jpg" alt="vmffnDWo0w" height="70"/>
+                        </h2>
+                    </div>
+                    <div class="offcanvas-body mt-3 scrollableOffcanvas">
+                        <ul class="navbar-nav text-center pe-2">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark border-bottom p-2" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark border-bottom p-2" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark border-bottom p-2" asp-area="" asp-controller="Member" asp-action="Index">Members</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark border-bottom p-2" asp-area="" asp-controller="Member" asp-action="AddMember">Add Member</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark border-bottom p-2" asp-area="" asp-controller="Group" asp-action="AddGroup">Add Group</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark border-bottom p-2" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Groups
+                                </a>
+                                <ul class="floating form-control dropdown-menu bg-transparent bg-opacity-25 border-0 text-end me-lg-5 float-start" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item border-bottom" asp-controller="Group" asp-action="LoanIndex">Loan Groups</a></li>
+                                    <li><a class="dropdown-item border-bottom" asp-controller="Group" asp-action="CollectionIndex">Collection Groups</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle text-dark border-bottom p-2" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Add Member To Group
+                                </a>
+                                <ul class="floating form-control dropdown-menu bg-dark bg-opacity-25 border-0 text-end me-lg-5 float-start" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item border-bottom" asp-controller="Group" asp-action="HeadingLoanGroup">Loan Group</a></li>
+                                    <li><a class="dropdown-item border-bottom" asp-controller="Group" asp-action="HeadingCollectionGroup">Collection Group</a></li>
+                                </ul>
+                                @*<a class="nav-link text-dark border-bottom p-2" asp-area="" asp-controller="Group" asp-action="MemberWithGroup">Add Member to Group</a>*@
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="offcanvas-footer flex-grow-2 py-1 mt-2">
+                        <p class="text-center text-black">© Copyright 2023 SmartLoan</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+   @* <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - LoanProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    @* ++++++++++++++++++ Select2.JS ++++++++++++++++++*@
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    @* ++++++++++++++++++ Bootbox.JS ++++++++++++++++++*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.3/bootbox.min.js" integrity="sha512-U3Q2T60uOxOgtAmm9VEtC3SKGt9ucRbvZ+U3ac/wtvNC+K21Id2dNHzRUC7Z4Rs6dzqgXKr+pCRxx5CyOsnUzg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.3/bootbox.js" integrity="sha512-OMYI9iOelB12PWdWHfU6XouDuUvszFZEywO4W9KFJGP3aj/nP5UECd5ctMqRm+/9Qk3oOFqhbXVi6cJAqlAUuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
