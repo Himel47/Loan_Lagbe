@@ -19,22 +19,23 @@ namespace LoanProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<NewMember> members = memberService.GetMembersAsync();
+            var members = await memberService.GetMembersAsync();
             return View(members);
         }
 
         [HttpGet]
-        public IActionResult AddMember()
+        public async Task<IActionResult> AddMember()
         {
-            return View();
+            var response = await memberService.AddMemberAsync();
+            return View(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddMember(MemberBase member)
+        public async Task<IActionResult> AddMember(CreatingMemberViewModel model)
         {
-            var response = await memberService.AddMemberAsync(member);
+            var response = await memberService.AddMemberAsync(model);
             return RedirectToAction("Index");
         }
 
@@ -69,9 +70,9 @@ namespace LoanProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditDetails(MemberBase member)
+        public async Task<IActionResult> EditDetails(CreatingMemberViewModel model)
         {
-            await memberService.EditMemberDetails(member);
+            await memberService.EditMemberDetails(model);
             return RedirectToAction("Index");
         }
 

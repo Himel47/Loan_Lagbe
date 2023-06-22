@@ -6,11 +6,11 @@ namespace LoanService.ServiceInterface
 {
     public interface IMemberService
     {
-        public List<NewMember> GetMembersAsync();
-        public Task<MemberBase> AddMemberAsync(MemberBase member);
-//        public Task<AddMemberToGroupViewModel> AddMemberToGroupAsync();
+        public Task<List<NewMember>> GetMembersAsync();
+        public Task<CreatingMemberViewModel> AddMemberAsync();
+        public Task<CreatingMemberViewModel> AddMemberAsync(CreatingMemberViewModel model);
         public Task<MemberBase> GetMemberDetailsAsync(long nid);
-        public Task<MemberBase> EditMemberDetails(long Nid);
-        public Task<MemberBase> EditMemberDetails(MemberBase response);
+        public Task<CreatingMemberViewModel> EditMemberDetails(long Nid);
+        public Task<CreatingMemberViewModel> EditMemberDetails(CreatingMemberViewModel model);
     }
 }

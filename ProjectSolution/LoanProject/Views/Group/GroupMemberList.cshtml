@@ -1,10 +1,90 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using LoanData.ViewModels;
 
+@model MemberWithGroupViewModel
 
 <div>
-    Group Members Will be listed Here.!!!
+    @if (Model.GroupTypeId == 1)
+    {
+        <h3>Loan Group: <u class="text-warning">@Model.GroupName</u></h3>
+    }
+    else if (Model.GroupTypeId == 2)
+    {
+        <h3>Collection Group: <u class="text-warning">@Model.GroupName</u></h3>
+    }
+    <hr />
+    <div class="d-flex justify-content-between align-items-center mt-2">
+        <h2 class="text-info">Members</h2>
+        <a class="btn btn-outline-secondary btn-sm"
+           asp-action="LoanIndex"
+           asp-controller="Group">
+            <i class="bi bi-backspace"></i>
+            Back to Group List
+        </a>
+    </div>
+    <div class="col-10 offset-1 mt-5">
+        @if (Model.MembersList.Count!=0)
+        {
+            <table class="table table-borderless text-center mt-3 justify-content-between">
+                
+                <tbody>
+                    <tr class="border-bottom text-uppercase">
+                        <th>Member NID</th>
+                        <th>Member Name</th>
+                        <th>Monthly Income</th>
+                        <th>Occupation</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var member in Model.MembersList)
+                    {
+                        <tr>
+                            <td>@member.NID</td>
+                            <td>@member.Name</td>
+                            <td>@member.MonthlyIncome</td>
+                            <td>@member.Occupation</td>
+                            @if (Model.GroupTypeId == 1)
+                            {
+                                <td class="btn-group gap-2">
+                                    <a class="text-decoration-none"
+                                       asp-controller="Member"
+                                       asp-action="MemberDetails"
+                                       asp-route-nid="@member.NID">
+                                        Details
+                                    </a>
+                                    <a class="text-decoration-none text-danger"
+                                       asp-controller="Loan"
+                                       asp-action="PersonalLoan"
+                                       asp-route-nid="@member.NID"
+                                       asp-route-groupId="@Model.GroupId">
+                                        Loan Plan
+                                    </a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <a class="text-decoration-none" asp-controller="Member" asp-action="MemberDetails" asp-route-nid="@member.NID">Details</a>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="text-center row">
+                <h2 class="text-danger fw-bold">EMPTY</h2>
+                <span>No Member Added To this Group Yet!</span>
+                <p>
+                    Click <a asp-action="MemberWithGroup"
+                        asp-controller="Group"
+                        asp-route-groupId="@Model.GroupId"
+                        asp-route-groupTypeId="@Model.GroupTypeId">
+                        Here
+                    </a> to add member to this Group
+                </p>
+            </div>
+        }
+    </div>
+    
 </div>

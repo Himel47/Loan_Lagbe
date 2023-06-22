@@ -68,11 +68,12 @@ namespace LoanProject.Controllers
             return View(response);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GroupMemberList()
-        //{
-        //    return View();
-        //}
+        [HttpGet]
+        public async Task<IActionResult> GroupMemberList(int groupId, int groupTypeId)
+        {
+            var response = await groupService.GroupMemberListAsync(groupId,groupTypeId);
+            return View(response);
+        }
 
         [HttpGet]
         public async Task<IActionResult> MemberWithGroup(int GroupId, int groupTypeId)
@@ -114,14 +115,14 @@ namespace LoanProject.Controllers
         public IActionResult HeadingLoanGroup()
         {
             var response = groupService.LoanGroupSelection();
-            return RedirectToAction("MemberWithGroup", new { GroupId = response.GroupId, groupTypeId = response.GroupTypeId });
+            return RedirectToAction("MemberWithGroup", new { response.GroupId, groupTypeId = response.GroupTypeId });
         }
 
         [HttpGet]
         public IActionResult HeadingCollectionGroup()
         {
             var response = groupService.CollectionGroupSelection();
-            return RedirectToAction("MemberWithGroup", new { GroupId = response.GroupId, groupTypeId = response.GroupTypeId });
+            return RedirectToAction("MemberWithGroup", new { response.GroupId, groupTypeId = response.GroupTypeId });
         }
     }
 }

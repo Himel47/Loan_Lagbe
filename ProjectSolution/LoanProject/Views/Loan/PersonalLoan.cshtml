@@ -1,0 +1,288 @@
+﻿@using LoanData.ViewModels;
+
+@model PersonalLoanViewModel
+
+@functions {
+    int loanId = 1;
+    int serial = 0;
+    public int GenerateId()
+    {
+        return loanId++;
+    }
+    public int SerialIncreaseByOne()
+    {
+        return serial++;
+    }
+}
+
+<style>
+
+    .loan-details-form {
+        max-height: 300px;
+        width: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        overscroll-behavior-y: contain;
+        scrollbar-color: unset;
+        scrollbar-width: thin;
+        scrollbar-color: #888888 #ffffff;
+    }
+
+    .loan-details-form::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .loan-details-form::-webkit-scrollbar-track {
+        background-color: #ffffff;
+    }
+
+    .loan-details-form::-webkit-scrollbar-thumb {
+        background-color: #888888;
+    }
+
+    .input-size {
+        width: 70px;
+        text-align: center;
+        justify-content:center;
+        align-items:center;
+    }
+
+    thead tr td {
+        font-size: 16px;
+    }
+
+    .installmentSelect{
+        font-size:19px;
+    }
+
+    .givingPadding{
+        padding: 0 75px;
+    }
+
+    .cursorActive{
+        cursor: pointer;
+    }
+</style>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="row">
+            <h3>@Model.SelectedMember.Name</h3>
+            <span>Plan Groupwise Loan</span>
+        </div>
+        <a class="btn btn-outline-secondary btn-sm"
+            asp-action="MemberLoanIndex"
+            asp-controller="Loan">
+            Back to Previous Page
+        </a>
+    </div>
+    <hr />
+    <div class="mt-2 row gap-1">
+        @if(Model.MemberContainingGroups.Count!=0)
+        {
+            @foreach (var loanGroups in Model.MemberContainingGroups)
+            {
+                <ul class="list-unstyled bg-light rounded border border-1 py-2 cursorActive">
+                    <li class="d-flex justify-content-between align-items-center givingPadding name-link">
+                        <h4>@loanGroups.LoanGroupName</h4>
+                        <i class="bi bi-chevron-double-down"></i>
+                        <i class="bi bi-chevron-double-up" style="display:none;"></i>
+                    </li>
+                    <li>
+                        <div class="loan-portion" style="display:none">
+                            <form method="post" asp-controller="Loan" asp-action="Index" id="loan-details-form">
+                                <table class="table" id="table-id">
+                                    <thead class="table-primary text-center">
+                                        <tr>
+                                            <th>X</th>
+                                            <th>Member Name</th>
+                                            <th>Loan Amount</th>
+                                            <th>Refund Period (in Month)</th>
+                                            <th>Installment Period (in Days)</th>
+                                            <th>Total Installment</th>
+                                            <th>Interest Rate</th>
+                                            <th>Processing Fee</th>
+                                            <th>Other charge</th>
+                                            <th>Total Interest</th>
+                                            <th>Total charge</th>
+                                            <th>Total Amount</th>
+                                            <th>Amount per Installment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="py-2 text-center">
+                                        <input asp-for="SelectedMemberNID" value="@Model.SelectedMemberNID" hidden >
+                                        <tr>
+                                            <input asp-for="LoanBasic[serial].MemberId" value="@Model.SelectedMemberNID" hidden>
+                                            <input asp-for="LoanBasic[serial].GroupId" value="@Model.SelectedGroupId" hidden>
+                                            <td class="loan-serial-id" data-column-name="SerialId">
+                                                <input class="border border-0 bg-light input-size" asp-for="LoanBasic[serial].SerialId" value="@GenerateId()" readonly />
+                                            </td>
+                                            <td class="text-start">
+                                                @Model.SelectedMember.Name
+                                            </td>
+                                            <td class="amount" data-column-name="LoanAmount">
+                                                <input asp-for="LoanBasic[serial].LoanAmount" data-serial="@serial" type="number" class="input-size" min="1" value="10000"  />
+                                            </td>
+                                            <td class="submission-time" data-column-name="SubmissionTimeInMonth">
+                                                <input asp-for="LoanBasic[serial].SubmissionTimeInMonth" data-serial="@serial" type="number" class="input-size" min="1" value="6" />
+                                            </td>
+                                            <td class="installment-days" data-column-name="InstallmentDays">
+                                                <select class="input-size installmentSelect" asp-items="Model.SubmissionPeriod" asp-for="LoanBasic[serial].InstallmentDays"></select>
+                                            </td>
+                                            <td class="installmentCount" data-column-name="InstallmentCount">
+                                                <input asp-for="LoanBasic[serial].InstallmentCount" data-serial="@serial" type="number" class="input-size" min="1" value="25" readonly />
+                                            </td>
+                                            <td class="interest-rate" data-column-name="InterestRate">
+                                                <input asp-for="LoanBasic[serial].InterestRate" data-serial="@serial" type="number" class="input-size" min="1" value="8" />
+                                            </td>
+                                            <td class="processingFee" data-column-name="ProcessingFee">
+                                                <input asp-for="LoanBasic[serial].ProcessingFee" data-serial="@serial" type="number" class="input-size" min="0" value="120" readonly/>
+                                            </td>
+                                            <td class="extraCharge" data-column-name="ExtraCharge">
+                                                <input asp-for="LoanBasic[serial].ExtraCharge" data-serial="@serial" type="number" class="input-size" min="0" value="0" />
+                                            </td>
+                                            <td class="totalInterest" data-column-name="IncludedInterest">
+                                                <input id="totalInterest-@serial" class="input-size" value="800" readonly />
+                                            </td>
+                                            <td class="totalCharge" data-column-name="TotalCharge">
+                                                <input asp-for="LoanBasic[serial].TotalCharge" data-serial="@serial" type="number" class="input-size" min="0" value="120" readonly />
+                                            </td>
+                                            <td class="totalRefundAmount" data-column-name="RefundAmount">
+                                                <input asp-for="LoanBasic[serial].RefundAmount" data-serial="@serial" type="number"  class="input-size" value="10920" readonly />
+                                            </td>
+                                            <td class="perInstallmentAmount" data-column-name="PerInstallmentAmount">
+                                                <input asp-for="LoanBasic[serial].PerInstallmentAmount" data-serial="@serial" type="number"  class="input-size" value="437" readonly />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="d-flex justify-content-between mt-2">
+                                    <span></span>
+                                    <button type="submit" class="btn btn-primary btn-sm">Submit Plan</button>
+                                </div>
+                            </form>
+                        </div>
+                        <input value="@SerialIncreaseByOne()" hidden/>
+                    </li>
+                </ul>
+            }
+        }
+        else if (Model.MemberContainingGroups.Count == 0)
+        {
+            <div class="text-center">
+                <h2 class="text-danger fw-bold">EMPTY</h2>
+                <span>This Member have not joined any Group Yet!</span>
+                <p>
+                    Click <a asp-action="MemberWithGroup"
+                             asp-controller="Group"
+                             asp-route-groupId="0"
+                             asp-route-groupTypeId="1">
+                        Here
+                    </a> to add Member to Groups
+                </p>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script>
+        $("#loan-details-form").on("keyup keypress", function (e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        $(document).ready(function () {
+            $(".name-link").click(function () {
+                var description = $(this).closest("ul").find(".loan-portion");
+                var downIcon = $(this).find(".bi-chevron-double-down");
+                var upIcon = $(this).find(".bi-chevron-double-up");
+
+                description.slideToggle(()=>{
+                    if (description.is(":visible")) {
+                        downIcon.hide();
+                        upIcon.show();
+                    } else {
+                        upIcon.hide();
+                        downIcon.show();
+                    }
+                });
+            });
+
+            const primaryHelper = (serial) => {
+                let amount = $(`#LoanBasic_${serial}__LoanAmount`).val();
+                let interestRate = $(`#LoanBasic_${serial}__InterestRate`).val();
+                let period = $(`#LoanBasic_${serial}__SubmissionTimeInMonth`).val();
+                let installmentInDays = Number.parseInt($(`#LoanBasic_${serial}__InstallmentDays`).val());
+                let totalCharge = $(`#LoanBasic_${serial}__TotalCharge`).val();
+                let processingFee = Number.parseInt($(`#LoanBasic_${serial}__ProcessingFee`).val());
+                let extraCharge = Number.parseInt($(`#LoanBasic_${serial}__ExtraCharge`).val());
+
+                let totalDays = 30 * Number.parseInt(period);
+                let totalInstallment = Math.floor(totalDays / installmentInDays);
+                let totalInterest = amount * Number.parseFloat(interestRate) / 100;
+                let totalAmount = Math.ceil(Number.parseInt(amount) + totalInterest + Number.parseInt(totalCharge));
+                let perInstallmentAmount = Math.ceil(totalAmount / totalInstallment);
+                let totalFees = processingFee + extraCharge;
+
+                console.log(totalAmount, perInstallmentAmount);
+
+                $(`#LoanBasic_${serial}__PerInstallmentAmount`).val(perInstallmentAmount);
+                $(`#LoanBasic_${serial}__InstallmentCount`).val(totalInstallment);
+                $(`#LoanBasic_${serial}__RefundAmount`).val(totalAmount);
+                $(`#LoanBasic_${serial}__TotalCharge`).val(totalFees);
+                $(`#totalInterest-${serial}`).val(totalInterest);
+            }
+
+            $(".amount").on("change keypress", (event) => {
+                let serial = event.target.dataset.serial;
+                primaryHelper(serial);
+            });
+
+            $(".submission-time").on("change keypress", (event) => {
+                let serial = event.target.dataset.serial;
+                primaryHelper(serial);
+            });
+
+            $(".installment-days").on("change keypress", (event) => {
+                let serial = event.target.dataset.serial;
+                primaryHelper(serial);
+            });
+
+            $(".interest-rate").on("change keypress", (event) => {
+                let serial = event.target.dataset.serial;
+                primaryHelper(serial);
+            });
+
+            $(".extraCharge").on("change keypress", (event) => {
+                let serial = event.target.dataset.serial;
+                primaryHelper(serial);
+            });
+
+
+            $('.submitBtn').click(function () {
+                var Serial = $(this).closest('tr').find('.totalRefundAmount input').data('serial');
+                var rowData = {};
+
+                $(this).closest('tr').find('[data-column-name]').each(function () {
+                    var columnName = $(this).data('column-name');
+                    var columnValue = $(this).find('input').val();
+                    rowData[columnName] = columnValue;
+                });
+
+                // Update the hidden input with the captured data
+                $('#loan-details-input-' + Serial).val(JSON.stringify(rowData));
+
+                // Submit the form
+                $('#loan-details-form').submit();
+            });
+
+
+        });
+    </script>
+}

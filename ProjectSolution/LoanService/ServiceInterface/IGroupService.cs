@@ -17,6 +17,7 @@ namespace LoanService.ServiceInterface
         public Task<GroupCreatingViewModel> AddNewCollectionGroupAsync(GroupCreatingViewModel model);
         public Task<MemberWithGroupViewModel> AddMemberToGroupAsync(int groupId, int groupTypeId);
         public Task<GroupDetailsViewModel> GetGroupDetailsAsync(int id, int groupTypeId);
+        public Task<MemberWithGroupViewModel> GroupMemberListAsync(int groupId, int groupTypeId);
         public Task<GroupDetailsViewModel> EditGroupDetailsAsync(int id, int groupTypeId);
         public Task<GroupDetailsViewModel> EditGroupDetailsAsync(GroupDetailsViewModel model);
         public MemberWithGroupViewModel CollectionGroupSelection();

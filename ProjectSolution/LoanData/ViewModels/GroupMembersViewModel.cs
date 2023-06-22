@@ -11,8 +11,11 @@ namespace LoanData.ViewModels
 {
     public class GroupMembersViewModel
     {
+        public int Id { get; set; }
         public int GroupId { get; set; }
-        public LoanGroup LoanGroup { get; set; }
-        public IEnumerable<MemberBase> GroupMembers { get; set; }
+        public int GroupTypeId { get; set; }
+        public LoanGroup? LoanGroup { get; set; }
+        public CollectionGroup? CollectionGroup { get; set; }
+        public IEnumerable<MemberBase>? GroupMembers { get; set; }
     }
 }

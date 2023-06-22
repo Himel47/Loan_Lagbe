@@ -33,7 +33,14 @@
                             <td>@group.CollectionGroupName</td>
                             <td>@group.Location</td>
                             <td>@group.CreatedAt</td>
-                            <td><a class="text-decoration-none" asp-action="GroupMemberList">View Members</a></td>
+                            <td class="text-center">
+                                <a class="text-decoration-none"
+                                    asp-route-groupId="@group.CollectionGroupId"
+                                    asp-route-groupTypeId="2"
+                                    asp-action="GroupMemberList">
+                                    View Members
+                                </a>
+                            </td>
                             <td>@group.CollectedMoney</td>
                             <td class="text-center">
                                 <div class="btn btn-group gap-3">

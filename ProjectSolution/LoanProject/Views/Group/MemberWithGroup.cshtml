@@ -76,7 +76,7 @@
         {
             <div class="text-center row">
                 <h2 class="text-center text-danger fw-bold">EMPTY Member List</h2>
-                <span class="text-center">Click <a class="text-decoration-none text-info" asp-controller="Member" asp-action="AddMember">Here</a> to add new Member!</span>
+                <span class="text-center">Click <a class="text-decoration-none text-info" asp-controller="Member" asp-action="AddMember">Here</a> to Create new Member!</span>
             </div>
         }
     </div>
@@ -107,8 +107,13 @@
             })
 
             $("#submit-button").on("click",function(){
-                let group = document.getElementById("groupListing")
-                groupId = group.value
+                if(@Model.GroupId==0){
+                    let group = document.getElementById("groupListing")
+                    groupId = group.value
+                }
+                else{
+                    groupId = @Model.GroupId
+                }
                 groupTypeId = @Model.GroupTypeId
                 console.log(groupId)
                 console.log(groupTypeId)

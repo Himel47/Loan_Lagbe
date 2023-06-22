@@ -2,7 +2,7 @@
 
 @model List<LoanGroup>;
 
-<div class="container-fluid text-right">
+<div class="container-fluid text-right loanIndex">
     <div class="d-flex justify-content-between">
         <h2 class=" mb-3">Loan Groups</h2>
 
@@ -22,6 +22,7 @@
                         <th>Member Details</th>
                         <th>Total Loan Amount</th>
                         <th>Action</th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -33,7 +34,14 @@
                             <td>@group.LoanGroupName</td>
                             <td>@group.Location</td>
                             <td>@group.CreatedAt</td>
-                            <td><a class="text-decoration-none" asp-action="GroupMemberList">View Members</a></td>
+                            <td>
+                                <a class="text-decoration-none"
+                                    asp-route-groupId="@group.LoanGroupId"
+                                    asp-route-groupTypeId="1"
+                                    asp-action="GroupMemberList">
+                                    View Members
+                                </a>
+                            </td>
                             <td>@group.TotalLoanAmount</td>
                             <td class="text-center">
                                 <div class="btn btn-group gap-3">
@@ -46,6 +54,21 @@
                                         asp-route-groupTypeId="1"
                                         asp-action="EditGroupInfo">Edit</a>
                                 </div>
+                            </td>
+                            <td class="text-center">
+                                @if(group.IsLoanPlanned == false)
+                                {
+                                    <a class="btn btn-warning"
+                                        asp-controller="Loan"
+                                        asp-action="Index"
+                                        asp-route-groupId="@group.LoanGroupId">
+                                        Loan Plan
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-success cursor-not-allowed">Loan Planned</a>
+                                }
                             </td>
                         </tr>
                     }

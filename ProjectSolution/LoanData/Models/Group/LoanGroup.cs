@@ -23,5 +23,6 @@ namespace LoanData.Models.Group
 
         public MemberBase? Member { get; set; }
         public int TotalLoanAmount { get; set; } = 0;
+        public bool IsLoanPlanned { get; set; } = false;
     }
 }
