@@ -9,93 +9,93 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = LoanProject
 build_property.RootNamespace = LoanProject
-build_property.ProjectDir = C:\Users\BS358\Documents\Projects\ProjectSolution\LoanProject\
+build_property.ProjectDir = C:\Users\BS358\Documents\Loan_Lagbe\ProjectSolution\LoanProject\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = true
-build_property.MSBuildProjectDirectory = C:\Users\BS358\Documents\Projects\ProjectSolution\LoanProject
+build_property.MSBuildProjectDirectory = C:\Users\BS358\Documents\Loan_Lagbe\ProjectSolution\LoanProject
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Group/AddGroup.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Group/AddGroup.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBcQWRkR3JvdXAuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Group/CollectionIndex.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Group/CollectionIndex.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBcQ29sbGVjdGlvbkluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Group/EditGroupInfo.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Group/EditGroupInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBcRWRpdEdyb3VwSW5mby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Group/GetGroupDetails.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Group/GetGroupDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBcR2V0R3JvdXBEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Group/GroupMemberList.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Group/GroupMemberList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBcR3JvdXBNZW1iZXJMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Group/LoanIndex.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Group/LoanIndex.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBcTG9hbkluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Group/MemberWithGroup.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Group/MemberWithGroup.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBcTWVtYmVyV2l0aEdyb3VwLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Home/Index.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Home/Privacy.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Loan/Index.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Loan/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9hblxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Loan/MemberLoanIndex.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Loan/MemberLoanIndex.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9hblxNZW1iZXJMb2FuSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Loan/PersonalLoan.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Loan/PersonalLoan.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9hblxQZXJzb25hbExvYW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Member/AddMember.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Member/AddMember.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXEFkZE1lbWJlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Member/EditDetails.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Member/EditDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXEVkaXREZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Member/Index.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Member/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Member/MemberDetails.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Member/MemberDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXE1lbWJlckRldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Shared/Error.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/_ViewImports.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/_ViewStart.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BS358/Documents/Projects/ProjectSolution/LoanProject/Views/Shared/_Layout.cshtml]
+[C:/Users/BS358/Documents/Loan_Lagbe/ProjectSolution/LoanProject/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-xkivt7qi2a

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aNUIlyW3maDT5XRvIwqbRnn0yJa45+GnIPxD380gDRwwJkppgbhJgV6R4jIPCnJKDpnHZYMIkYgBXRV6DLlK+Q==",
+  "dgSpecHash": "FnsUB7rNQNG8Zdn/2lpsGiMjYFPKFeoCNFSCzScb5G+BMU8dLOLlM9oZCZw4fEwoouUWLAILciR3VrXRRrno+w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\BS358\\Documents\\Projects\\ProjectSolution\\LoanProject\\LoanProject.csproj",
+  "projectFilePath": "C:\\Users\\BS358\\Documents\\Loan_Lagbe\\ProjectSolution\\LoanProject\\LoanProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\BS358\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\BS358\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

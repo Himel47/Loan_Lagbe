@@ -4036,11 +4036,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\BS358\\Documents\\Projects\\ProjectSolution\\LoanData\\LoanData.csproj",
+      "projectUniqueName": "C:\\Users\\BS358\\Documents\\Loan_Lagbe\\ProjectSolution\\LoanData\\LoanData.csproj",
       "projectName": "LoanData",
-      "projectPath": "C:\\Users\\BS358\\Documents\\Projects\\ProjectSolution\\LoanData\\LoanData.csproj",
+      "projectPath": "C:\\Users\\BS358\\Documents\\Loan_Lagbe\\ProjectSolution\\LoanData\\LoanData.csproj",
       "packagesPath": "C:\\Users\\BS358\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\BS358\\Documents\\Projects\\ProjectSolution\\LoanData\\obj\\",
+      "outputPath": "C:\\Users\\BS358\\Documents\\Loan_Lagbe\\ProjectSolution\\LoanData\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

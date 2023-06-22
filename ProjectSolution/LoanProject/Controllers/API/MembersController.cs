@@ -1,6 +1,5 @@
 ﻿using LoanData.ViewModels;
 using LoanService.ServiceInterface;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoanProject.Controllers.API
@@ -20,7 +19,7 @@ namespace LoanProject.Controllers.API
         public async Task<JsonResult> AddMemberToGroup([FromForm] AddMemberToGroupViewModel model)
         {
             var response = await groupService.AddMemberToGroup(model);
-            if(response != null)
+            if (response != null)
             {
                 return new JsonResult(Ok("Members are Added Successfully!"));
             }
