@@ -8,6 +8,7 @@ namespace LoanData.ViewModels
     {
         public SelectiveMemberDto Member { get; set; }
         public List<LoanGroupDto> MemberContainingGroups { get; set; }
+        public List<int> LoanTakenGroupIds { get; set; }
 
     }
 }

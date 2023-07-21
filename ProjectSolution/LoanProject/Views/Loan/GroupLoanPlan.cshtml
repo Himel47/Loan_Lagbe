@@ -237,7 +237,129 @@
                 primaryHelper(serial);
             });
 
+---------------------------------------------------------------------------------------------
 
+
+        //$(".button-submit").on("click", (event)=>{
+        //    let serial = event.target.dataset.serial;
+        //    //var formId = "#form-" + serial;
+        //    //var form = document.querySelector(formId)
+
+        //    var formId = $(this).data("form-id");
+        //    var form = $("#" + formId);
+
+        //    console.log(form)
+        //    debugger
+
+        //    var formData = {};
+
+
+        //    form.find('input[data-column-name]').each(function () {
+        //        var columnName = $(this).data('column-name');
+        //        var columnValue = $(this).val();
+        //        formData[columnName] = columnValue;
+        //        debugger
+        //    });
+
+
+        //var inputs = form.querySelectorAll("input");
+        ////console.log(inputs)
+        ////debugger;
+        //inputs.forEach(function (input) {
+        //    //debugger;
+        //    if (!input.name.includes("VerificationToken")) {
+        //        var fieldName = input.name.replace(/LoanBasic\[\d+\]\./, "");
+        //        formData[fieldName] = input.value;
+        //    }
+        //});
+
+        //var selects = form.querySelectorAll("select")
+
+        //selects.forEach(function (select) {
+        //    var fieldName = select.name.replace(/LoanBasic\[\d+\]\./, "");
+        //    formData[fieldName] = select.value;
+        //})
+
+        //    console.log(formData)
+
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Api/Loans",
+        //        data: JSON.stringify(formData),
+        //        datatype: "json",
+        //        success: function (response) {
+        //            debugger;
+        //            console.log(response);
+        //        },
+        //        error: function (error) {
+        //            debugger;
+        //            console.log(error);
+        //        }
+        //    });
+
+
+        //})
+
+
+        //function submitForm(groupId) {
+        //    var formId = "#form-" + groupId;
+        //    var form = document.querySelector(formId)
+
+        //    console.log(formId)
+
+        //    var formData = {};
+
+        //    var inputs = form.querySelectorAll("input");
+        //    //console.log(inputs)
+        //    //debugger;
+        //    inputs.forEach(function (input) {
+        //        //debugger;
+        //        if(!input.name.includes("VerificationToken")){
+        //            var fieldName = input.name.replace(/LoanBasic\[\d+\]\./, "");
+        //            formData[fieldName] = input.value;
+        //        }
+        //    });
+
+        //    var selects = form.querySelectorAll("select")
+
+        //    selects.forEach(function (select) {
+        //        var fieldName = select.name.replace(/LoanBasic\[\d+\]\./, "");
+        //        formData[fieldName] = select.value;
+        //    })
+
+        //    console.log(JSON.stringify(formData))
+
+
+        //    //fetch("/api/Loans/", {
+        //    //    method: "post",
+        //    //    headers: {
+        //    //        "Content-Type": "application/json",
+        //    //        //'Content-Type': 'application/x-www-form-urlencoded',
+        //    //    },
+
+        //    //    body: formData
+        //    //}).then((res)=>{
+        //    //    console.log(res)
+        //    //}).catch((error)=>{
+        //    //    console.log(error)
+        //    //})
+
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Api/Loans",
+        //        data: JSON.stringify(formData),
+        //        datatype: "json",
+        //        success: function (response) {
+        //            debugger;
+        //            console.log(response);
+        //        },
+        //        error: function (error) {
+        //            debugger;
+        //            console.log(error);
+        //        }
+        //    });
+
+        //}
         })
     </script>
 }
