@@ -1,5 +1,4 @@
-﻿using LoanData.ViewModels;
-using LoanService.ServiceInterface;
+﻿using LoanService.ServiceInterface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoanProject.Controllers
@@ -15,9 +14,23 @@ namespace LoanProject.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Index(int groupId)
+        public async Task<IActionResult> LoanIndex()
         {
-            var response = await loanService.GetMainPage(groupId);
+            var response = await loanService.GetMainPage();
+            return View(response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index(long nid, int groupId)
+        {
+            var response = await loanService.MemberLoanWithGroups(nid, groupId);
+            return View(response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> MemberLoanGroupIndex(long nid, int groupId)
+        {
+            var response = await loanService.MemberGroupSelectForLoanPlan(nid, groupId);
             return View(response);
         }
 
@@ -26,24 +39,6 @@ namespace LoanProject.Controllers
         {
             var response = await loanService.MemberSelectForLoanPlan();
             return View(response);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> PersonalLoan(long nid, int groupId)
-        {
-            var response = await loanService.MemberLoanWithGroups(nid, groupId);
-            return View(response);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> PersonalLoan(PersonalLoanViewModel model)
-        {
-            var response = await loanService.MemberLoanWithGroups(model);
-            if(response == null)
-            {
-                return BadRequest(response);
-            }
-            return RedirectToAction("LoanIndex","Group");
         }
 
     }

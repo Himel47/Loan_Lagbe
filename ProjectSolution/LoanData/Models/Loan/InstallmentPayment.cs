@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace LoanData.Models.Loan
 {
@@ -16,6 +11,6 @@ namespace LoanData.Models.Loan
         public int InstalmentAmount { get; set; }
         public int PaidAmount { get; set; } = 0;
         public int RemainingAmount { get; set; } = 0;
-        public string IsPaid { get; set; }
+        public bool IsPaid { get; set; }
     }
 }

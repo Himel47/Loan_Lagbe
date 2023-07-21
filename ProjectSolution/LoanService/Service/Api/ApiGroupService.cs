@@ -1,19 +1,30 @@
-﻿using LoanData.DBContext;
+﻿using AutoMapper;
+using LoanData.DBContext;
+using LoanData.DTOs;
 using LoanData.Models;
 using LoanData.ViewModels;
-using LoanService.ServiceInterface;
+using LoanService.ServiceInterface.Api;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace LoanService.Service
+namespace LoanService.Service.Api
 {
     public class ApiGroupService : IApiGroupService
     {
         private readonly MyContext context;
+        private readonly IMapper mapper;
 
-        public ApiGroupService(MyContext context)
+        public ApiGroupService(MyContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
+        }
+
+        public IEnumerable<SelectiveMemberDto> GetAllMembers()
+        {
+            var members = context.Members.ToList().Select(x => mapper.Map<SelectiveMemberDto>(x));
+
+            return members;
         }
 
         public async Task<JsonResult> AddMemberToGroup(AddMemberToGroupViewModel model)
@@ -21,12 +32,12 @@ namespace LoanService.Service
             int groupId = model.GroupId;
             int groupTypeId = model.GroupTypeId;
             var ExistingMemberIds = await context.MembersWithGroups
-                .Where(x=>x.GroupTypeId == groupTypeId && x.GroupId == groupId)
-                .Select(x=>x.MemberNID).ToListAsync();
+                .Where(x => x.GroupTypeId == groupTypeId && x.GroupId == groupId)
+                .Select(x => x.MemberNID).ToListAsync();
 
-            foreach(var memberNID in model.MemberNIDs)
+            foreach (var memberNID in model.MemberNIDs)
             {
-                if(!ExistingMemberIds.Contains(memberNID))
+                if (!ExistingMemberIds.Contains(memberNID))
                 {
                     MemberWithGroup memberWithGroup = new()
                     {

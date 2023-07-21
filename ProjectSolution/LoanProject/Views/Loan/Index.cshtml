@@ -1,37 +1,26 @@
-﻿@using LoanData.ViewModels;
+﻿
 
-@model LoanPlanningViewModel
 
-@functions {
-    int loanId = 1;
-    int serial = 0;
-    public int GenerateId()
-    {
-        return loanId++;
-    }
-    public int SerialIncreaseByOne()
-    {
-        return serial++;
-    }
-}
+@using LoanData.ViewModels;
+
+@model PersonalLoanFormViewModel
+
+
 
 <style>
 
     .loan-details-form {
-        max-height: 650px;
+        max-height: 300px;
         width: 100%;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        overscroll-behavior-y: contain;
+        overflow: scroll;
+        overscroll-behavior: contain;
         scrollbar-color: unset;
         scrollbar-width: thin;
         scrollbar-color: #888888 #ffffff;
     }
 
-    @*Scrollable Loan Details Table Scrollbar Style*@
-
     .loan-details-form::-webkit-scrollbar {
-        width: 8px;
+        width: 5px;
     }
 
     .loan-details-form::-webkit-scrollbar-track {
@@ -45,136 +34,100 @@
     .input-size {
         width: 70px;
         text-align: center;
-        justify-content:center;
-        align-items:center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .installmentSelect {
+        font-size: 19px;
     }
 
     thead tr td {
-        font-size: 16px;
+        font-size: 14px;
     }
-
-    .installmentSelect{
-        font-size:19px;
-    }
-
-
 </style>
 
-<section class="loan-planning-section">
-    <div class="container-fluid">
-        <div class="d-flex justify-content-between mt-2 mb-3">
-            <h2>Loan Plan: Group <u class="text-warning">@Model.loanGroup.LoanGroupName</u></h2>
 
-            <a class="btn btn-outline-danger btn-sm px-4 mb-3" asp-controller="Group" asp-action="LoanIndex">Cancel</a>
-        </div>
-        <hr />
-        <div class="my-4 row">
-            @if (Model.MemberList.Count != 0)
-            {
-                <form method="post" asp-controller="Loan" asp-action="Index" id="loan-details-form">
-                    <table class="table" id="table-id">
-                        <thead class="table-primary text-center">
-                            <tr>
-                                <th>X</th>
-                                <th>Member Name</th>
-                                <th>Loan Amount</th>
-                                <th>Refund Period (in Month)</th>
-                                <th>Installment Period (in Days)</th>
-                                <th>Total Installment</th>
-                                <th>Interest Rate</th>
-                                <th>Processing Fee</th>
-                                <th>Other charge</th>
-                                <th>Total Interest</th>
-                                <th>Total charge</th>
-                                <th>Total Amount</th>
-                                <th>Amount per Installment</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var member in Model.MemberList)
-                            {
-                                <input asp-for="@Model.loanGroup.LoanGroupId" value="@Model.loanGroup.LoanGroupId" hidden />
-                                <input asp-for="@Model.loanBasic[serial].MemberId" value="@member.NID" hidden />
-                                <input asp-for="@Model.loanBasic[serial].GroupId" value="@Model.loanGroup.LoanGroupId" hidden />
-                                @*<input asp-for="@Model.MemberList[serial].NID" value="@member.NID" hidden />*@
-                                <tr class="text-center">
-                                    <td>@GenerateId()</td>
-                                    <td class="text-start">
-                                        @member.Name
-                                    </td>
-                                    <td class="amount">
-                                        <input asp-for="loanBasic[serial].LoanAmount" data-serial="@serial" type="number" class="input-size" min="1" value="10000" />
-                                    </td>
-                                    <td class="submissionTime">
-                                        <input asp-for="loanBasic[serial].SubmissionTimeInMonth" data-serial="@serial" type="number" class="input-size" min="1" value="6" />
-                                    </td>
-                                    <td class="installment-days">
-                                        <select class="input-size installmentSelect" asp-items="Model.SubmissionPeriod" asp-for="loanBasic[serial].InstallmentDays"></select>
-                                        @*<input id="installemntInDays-@serial" data-serial="@serial" type="number" class="input-size" min="1" value="15" max="30" />*@
-                                    </td>
-                                    <td class="installmentCount">
-                                        <input asp-for="loanBasic[serial].InstallmentCount" data-serial="@serial" type="number" class="input-size" min="1" value="25" readonly />
-                                    </td>
-                                    <td class="interest-rate">
-                                        <input asp-for="loanBasic[serial].InterestRate" data-serial="@serial" type="number" class="input-size" min="1" value="8" />
-                                    </td>
-                                    <td class="processingFee">
-                                        <input asp-for="loanBasic[serial].ProcessingFee" data-serial="@serial" type="number" class="input-size" min="0" value="120" readonly/>
-                                    </td>
-                                    <td class="extraCharge">
-                                        <input asp-for="loanBasic[serial].ExtraCharge" data-serial="@serial" type="number" class="input-size" min="0" value="0" />
-                                    </td>
-                                    <td class="totalInterest">
-                                        <input id="totalInterest-@serial" data-serial="@serial" class="input-size" value="800" readonly />
-                                    </td>
-                                    <td class="totalCharge">
-                                        <input asp-for="loanBasic[serial].TotalCharge" data-serial="@serial" type="number" class="input-size" min="0" value="120" readonly />
-                                    </td>
-                                    <td class="totalRefundAmount">
-                                        <input asp-for="loanBasic[serial].RefundAmount" type="number" data-serial="@serial" class="input-size" value="10920" readonly />
-                                    </td>
-                                    <td class="perInstallmentAmount">
-                                        <input asp-for="loanBasic[serial].PerInstallmentAmount" type="number" data-serial="@serial" class="input-size" value="437" readonly />
-                                    </td>
-                                </tr>
-                                <input value="@SerialIncreaseByOne()" hidden />
-                            }
-                        </tbody>
-                    </table>
-                    <div class="d-flex justify-content-between mt-4">
-                        <span></span>
-                        <button type="submit" class="btn btn-primary">Submit Plan</button>
-                    </div>
-                </form>
-            }
-            else
-            {
-                <div class="text-center">
-                    <h2 class="text-danger fw-bold">EMPTY</h2>
-                    <span>No Member Added To this Group Yet!</span>
-                    <p>
-                        Click <a asp-action="MemberWithGroup"
-                                 asp-controller="Group"
-                                 asp-route-groupId="@Model.loanGroup.LoanGroupId"
-                                 asp-route-groupTypeId="1">
-                            Here
-                        </a> to add member to this Group
-                    </p>
-                </div>
-            }
-        </div>
+
+Hello there!
+<h2>Member: <u>@Model.SelectedMemberName</u><br />Group: <u>@Model.SelectedGroupName</u></h2>
+<hr />
+<hr />
+
+<div class="container py-2 loan-details-form">
+    <table class="table" id="table-id">
+        <thead class="table-primary text-center">
+            <tr>
+                <th>GroupId</th>
+                <th>Loan Amount</th>
+                <th>Refund Period (in Month)</th>
+                <th>Installment Period (in Days)</th>
+                <th>Total Installment</th>
+                <th>Interest Rate</th>
+                <th>Processing Fee</th>
+                <th>Other charge</th>
+                <th>Total Interest</th>
+                <th>Total charge</th>
+                <th>Total Amount</th>
+                <th>Amount per Installment</th>
+            </tr>
+        </thead>
+        <tbody class="py-2 text-center">
+            <input asp-for="SelectedMemberNID" value="@Model.SelectedMemberNID" hidden>
+            <tr>
+                <input asp-for="LoanBasic.MemberId" value="@Model.SelectedMemberNID" hidden>
+                <input asp-for="LoanBasic.GroupId" value="@Model.SelectedGroupId" hidden>
+                <td>
+                    @Model.SelectedGroupId
+                </td>
+                <td class="amount">
+                    <input asp-for="LoanBasic.LoanAmount" type="number" class="input-size" min="1" value="10000" />
+                </td>
+                <td class="submission-time">
+                    <input asp-for="LoanBasic.SubmissionTimeInMonth" type="number" class="input-size" min="1" value="6" />
+                </td>
+                <td class="installment-days">
+                    <select class="input-size installmentSelect" asp-items="Model.SubmissionPeriod" asp-for="LoanBasic.InstallmentDays"></select>
+                </td>
+                <td class="installmentCount">
+                    <input asp-for="LoanBasic.InstallmentCount" type="number" class="input-size" min="1" value="25" readonly />
+                </td>
+                <td class="interest-rate">
+                    <input asp-for="LoanBasic.InterestRate" type="number" class="input-size" min="1" value="8" />
+                </td>
+                <td class="processingFee">
+                    <input asp-for="LoanBasic.ProcessingFee" type="number" class="input-size" min="0" value="120" readonly />
+                </td>
+                <td class="extraCharge">
+                    <input asp-for="LoanBasic.ExtraCharge" type="number" class="input-size" min="0" value="0" />
+                </td>
+                <td class="totalInterest">
+                    <input asp-for="LoanBasic.IncludedInterest" id="totalInterest" class="input-size" value="800" readonly />
+                </td>
+                <td class="totalCharge">
+                    <input asp-for="LoanBasic.TotalCharge" type="number" class="input-size" min="0" value="120" readonly />
+                </td>
+                <td class="totalRefundAmount">
+                    <input asp-for="LoanBasic.RefundAmount" type="number" class="input-size" value="10920" readonly />
+                </td>
+                <td class="perInstallmentAmount">
+                    <input asp-for="LoanBasic.PerInstallmentAmount" type="number" class="input-size" value="437" readonly />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-between my-3 px-4 py-1">
+        <button class="btn btn-primary btn-sm button-submit" id="loan-form-button">Submit Plan</button>
+        <span></span>
     </div>
-</section>
+</div>
 
 
 
-@section Scripts{
-    <script type="text/javascript">
-        const table = $("#table-id");
-        //const datatable = table.DataTable();
 
-        // Prevent form submission onpress "Enter"
-        $('#loan-details-form').on('keyup keypress', function (e) {
+@section scripts {
+    <script>
+        $(".loan-details-form").on("keyup keypress", function (e) {
             var keyCode = e.keyCode || e.which;
             if (keyCode === 13) {
                 e.preventDefault();
@@ -182,70 +135,223 @@
             }
         });
 
-        $(document).ready(()=>{
-            const primaryHelper = (serial)=>{
-                let amount = $(`#loanBasic_${serial}__LoanAmount`).val();
-                let interestRate = $(`#loanBasic_${serial}__InterestRate`).val();
-                let period = $(`#loanBasic_${serial}__SubmissionTimeInMonth`).val();
-                let installmentInDays = Number.parseInt($(`#loanBasic_${serial}__InstallmentDays`).val());
-                let totalCharge = $(`#loanBasic_${serial}__TotalCharge`).val();
-                let processingFee = Number.parseInt($(`#loanBasic_${serial}__ProcessingFee`).val());
-                let extraCharge = Number.parseInt($(`#loanBasic_${serial}__ExtraCharge`).val());
+        $(document).ready(function () {
 
-                let totalDays = 30 * Number.parseInt(period);
-                let totalInstallment = Math.floor(totalDays / installmentInDays);
-                let totalInterest = amount * Number.parseFloat(interestRate) / 100;
-                let totalAmount = Math.ceil(Number.parseInt(amount) + totalInterest + Number.parseInt(totalCharge));
-                let perInstallmentAmount = Math.ceil(totalAmount / totalInstallment);
-                let totalFees = processingFee + extraCharge;
+            var groupId = @Model.SelectedGroupId,
+                memberId = @Model.SelectedMemberNID;
+
+            var amount, interestRate, period, installmentInDays, totalCharge, processingFee, extraCharge;
+            var totalDays, totalInstallment, totalInterest, totalFees, totalAmount, perInstallmentAmount;
+
+            const primaryHelper = () => {
+                amount = $(`#LoanBasic_LoanAmount`).val();
+                interestRate = $(`#LoanBasic_InterestRate`).val();
+                period = $(`#LoanBasic_SubmissionTimeInMonth`).val();
+                installmentInDays = Number.parseInt($(`#LoanBasic_InstallmentDays`).val());
+                totalCharge = $(`#LoanBasic_TotalCharge`).val();
+                processingFee = Number.parseInt($(`#LoanBasic_ProcessingFee`).val());
+                extraCharge = Number.parseInt($(`#LoanBasic_ExtraCharge`).val());
+
+                totalDays = 30 * Number.parseInt(period);
+                totalInstallment = Math.floor(totalDays / installmentInDays);
+                totalInterest = amount * Number.parseFloat(interestRate) / 100;
+                totalFees = processingFee + extraCharge;
+                totalAmount = Math.ceil(Number.parseInt(amount) + totalInterest + Number.parseInt(totalFees));
+                perInstallmentAmount = Math.ceil(totalAmount / totalInstallment);
 
                 console.log(totalAmount, perInstallmentAmount);
 
-                $(`#loanBasic_${serial}__PerInstallmentAmount`).val(perInstallmentAmount);
-                $(`#loanBasic_${serial}__InstallmentCount`).val(totalInstallment);
-                $(`#loanBasic_${serial}__RefundAmount`).val(totalAmount);
-                $(`#loanBasic_${serial}__TotalCharge`).val(totalFees);
-                $(`#totalInterest-${serial}`).val(totalInterest);
+                $(`#LoanBasic_PerInstallmentAmount`).val(perInstallmentAmount);
+                $(`#LoanBasic_InstallmentCount`).val(totalInstallment);
+                $(`#LoanBasic_RefundAmount`).val(totalAmount);
+                $(`#LoanBasic_TotalCharge`).val(totalFees);
+                $(`#totalInterest`).val(totalInterest);
             }
 
+            $(".amount").on("change keypress", () => {
+                primaryHelper();
+            });
+
+            $(".submission-time").on("change keypress", () => {
+                primaryHelper();
+            });
+
+            $(".installment-days").on("change keypress", () => {
+                primaryHelper();
+            });
+
+            $(".interest-rate").on("change keypress", () => {
+                primaryHelper();
+            });
+
+            $(".extraCharge").on("change keypress", () => {
+                primaryHelper();
+            });
+
+            $("#loan-form-button").on("click", function () {
+                primaryHelper()
+
+                console.log("Button Clicked " + groupId + " " + memberId + " " + amount + " "
+                    + interestRate + " " + period + " " + installmentInDays + " " + totalCharge + " "
+                    + processingFee + " " + extraCharge + " " + totalDays + " " + totalInstallment + " "
+                    + totalInterest + " " + totalFees + " " + totalAmount + " "+ perInstallmentAmount +"\n")
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Api/Loans",
+                    data: {
+                        GroupId: groupId,
+                        MemberId: memberId,
+                        LoanAmount: amount,
+                        InterestRate: interestRate,
+                        SubmissionTimeInMonth: period,
+                        InstallmentDays: installmentInDays,
+                        InstallmentCount: totalInstallment,
+                        PerInstallmentAmount: perInstallmentAmount,
+                        IncludedInterest: totalInterest,
+                        ProcessingFee: processingFee,
+                        ExtraCharge: extraCharge,
+                        TotalCharge: totalCharge,
+                        RefundAmount: totalAmount
+                    },
+                    datatype: "json",
+                    success: function (response) {
+                        //console.log(response);
+                        bootbox.alert(response.value,
+                            ()=>window.location.href = "/Loan/LoanIndex"
+                        )
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+
+            //$(".button-submit").on("click", (event)=>{
             
+            //    //var formId = "#form-" + serial;
+            //    //var form = document.querySelector(formId)
 
-            $(".amount").on("change keypress", (event) => {
-                let serial = event.target.dataset.serial;
-                primaryHelper(serial);
-            });
+            //    var formId = $(this).data("form-id");
+            //    var form = $("#" + formId);
 
-            $(".submissionTime").on("change keypress", (event) => {
-                let serial = event.target.dataset.serial;
-                primaryHelper(serial);
-            });
+            //    console.log(form)
+            //    debugger
 
-            $(".installment-days").on("change keypress", (event) => {
-                let serial = event.target.dataset.serial;
-                primaryHelper(serial);
-            });
-
-            $(".interest-rate").on("change keypress", (event) => {
-                let serial = event.target.dataset.serial;
-                primaryHelper(serial);
-            });
-
-            //$(".processing-fee").on("change keypress", (event) => {
-            //    let serial = event.target.dataset.serial;
-            //    processingAndOtherfeeHelper(serial);
-            //});
-
-            $(".extraCharge").on("change keypress", (event) => {
-                let serial = event.target.dataset.serial;
-                primaryHelper(serial);
-            });
+            //    var formData = {};
 
 
-        })
+            //    form.find('input[data-column-name]').each(function () {
+            //        var columnName = $(this).data('column-name');
+            //        var columnValue = $(this).val();
+            //        formData[columnName] = columnValue;
+            //        debugger
+            //    });
+
+
+
+
+
+                //var inputs = form.querySelectorAll("input");
+                ////console.log(inputs)
+                ////debugger;
+                //inputs.forEach(function (input) {
+                //    //debugger;
+                //    if (!input.name.includes("VerificationToken")) {
+                //        var fieldName = input.name.replace(/LoanBasic\[\d+\]\./, "");
+                //        formData[fieldName] = input.value;
+                //    }
+                //});
+
+                //var selects = form.querySelectorAll("select")
+
+                //selects.forEach(function (select) {
+                //    var fieldName = select.name.replace(/LoanBasic\[\d+\]\./, "");
+                //    formData[fieldName] = select.value;
+                //})
+
+            //    console.log(formData)
+
+            //    $.ajax({
+            //        type: "POST",
+            //        url: "/Api/Loans",
+            //        data: JSON.stringify(formData),
+            //        datatype: "json",
+            //        success: function (response) {
+            //            debugger;
+            //            console.log(response);
+            //        },
+            //        error: function (error) {
+            //            debugger;
+            //            console.log(error);
+            //        }
+            //    });
+
+
+            //})
+
+
+            //function submitForm(groupId) {
+            //    var formId = "#form-" + groupId;
+            //    var form = document.querySelector(formId)
+
+            //    console.log(formId)
+
+            //    var formData = {};
+
+            //    var inputs = form.querySelectorAll("input");
+            //    //console.log(inputs)
+            //    //debugger;
+            //    inputs.forEach(function (input) {
+            //        //debugger;
+            //        if(!input.name.includes("VerificationToken")){
+            //            var fieldName = input.name.replace(/LoanBasic\[\d+\]\./, "");
+            //            formData[fieldName] = input.value;
+            //        }
+            //    });
+
+            //    var selects = form.querySelectorAll("select")
+
+            //    selects.forEach(function (select) {
+            //        var fieldName = select.name.replace(/LoanBasic\[\d+\]\./, "");
+            //        formData[fieldName] = select.value;
+            //    })
+
+            //    console.log(JSON.stringify(formData))
+
+
+            //    //fetch("/api/Loans/", {
+            //    //    method: "post",
+            //    //    headers: {
+            //    //        "Content-Type": "application/json",
+            //    //        //'Content-Type': 'application/x-www-form-urlencoded',
+            //    //    },
+
+            //    //    body: formData
+            //    //}).then((res)=>{
+            //    //    console.log(res)
+            //    //}).catch((error)=>{
+            //    //    console.log(error)
+            //    //})
+
+            //    $.ajax({
+            //        type: "POST",
+            //        url: "/Api/Loans",
+            //        data: JSON.stringify(formData),
+            //        datatype: "json",
+            //        success: function (response) {
+            //            debugger;
+            //            console.log(response);
+            //        },
+            //        error: function (error) {
+            //            debugger;
+            //            console.log(error);
+            //        }
+            //    });
+
+            //}
+
+        });
     </script>
 }
-
-
-
-
-

@@ -115,6 +115,40 @@ namespace LoanData.Migrations
                     b.ToTable("LoanGroups");
                 });
 
+            modelBuilder.Entity("LoanData.Models.Loan.Installment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InstallmentCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InstallmentDays")
+                        .HasColumnType("int");
+
+                    b.Property<long>("MemberId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("Paid")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InstallmentDetails");
+                });
+
             modelBuilder.Entity("LoanData.Models.Loan.InstallmentPayment", b =>
                 {
                     b.Property<int>("Id")
@@ -135,9 +169,8 @@ namespace LoanData.Migrations
                     b.Property<int>("InstalmentAmount")
                         .HasColumnType("int");
 
-                    b.Property<string>("IsPaid")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
 
                     b.Property<long>("LoanId")
                         .HasColumnType("bigint");

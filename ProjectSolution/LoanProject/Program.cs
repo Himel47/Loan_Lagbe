@@ -1,6 +1,9 @@
 using LoanData.DBContext;
-using LoanService.ServiceInterface;
+using LoanData.MappingProfile;
 using LoanService.Service;
+using LoanService.Service.Api;
+using LoanService.ServiceInterface;
+using LoanService.ServiceInterface.Api;
 using Microsoft.EntityFrameworkCore;
 
 namespace LoanProject;
@@ -17,8 +20,16 @@ public class Program
         ));
         builder.Services.AddScoped<IMemberService, MemberService>();
         builder.Services.AddScoped<IGroupService, GroupService>();
-        builder.Services.AddScoped<IApiGroupService, ApiGroupService>();
         builder.Services.AddScoped<ILoanPlanService, LoanPlanService>();
+        builder.Services.AddScoped<IInstallmentService, InstallmentService>();
+
+
+        builder.Services.AddScoped<IApiGroupService, ApiGroupService>();
+        builder.Services.AddScoped<IApiLoanService, ApiLoanService>();
+        builder.Services.AddScoped<IApiInstallmentService, ApiInstallmentService>();
+
+        builder.Services.AddAutoMapper(typeof(Mapping).Assembly);
+        builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 
         var app = builder.Build();

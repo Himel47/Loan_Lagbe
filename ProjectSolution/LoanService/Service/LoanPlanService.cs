@@ -1,4 +1,6 @@
-﻿using LoanData.DBContext;
+﻿using AutoMapper;
+using LoanData.DBContext;
+using LoanData.DTOs;
 using LoanData.Models.Loan;
 using LoanData.Models.Member;
 using LoanData.ViewModels;
@@ -11,61 +13,20 @@ namespace LoanService.Service
     public class LoanPlanService : ILoanPlanService
     {
         private readonly MyContext context;
-        public LoanPlanService(MyContext context)
+        private readonly IMapper mapper;
+
+        public LoanPlanService(MyContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
 
-        public async Task<LoanPlanningViewModel> GetMainPage(int groupId)
+        public async Task<List<Installment>> GetMainPage()
         {
-            var group = await context.LoanGroups.SingleOrDefaultAsync(x => x.LoanGroupId == groupId);
-            var memberNids = await context.MembersWithGroups
-                    .Where(x=>x.GroupId == groupId && x.GroupTypeId==1)
-                    .Select(x=>x.MemberNID)
-                    .ToListAsync();
-            var subPeriod = await context.SubmissionPeriods.ToListAsync();
-            var vm = new LoanPlanningViewModel
-            {
-                MemberList = new List<MemberBase>(),
-                loanGroup = group,
-                SubmissionPeriod = new SelectList(subPeriod, "SubmissionPeriodDays", "SubmissionPeriodDays")
-            };
-
-            foreach (var nid in memberNids)
-            {
-                var SingleMember = await context.Members.SingleOrDefaultAsync(x => x.NID == nid);
-                if (SingleMember != null)
-                {
-                    vm.MemberList.Add(SingleMember);
-                }
-            }
-
-            return vm;
+            var AllInstallments = await context.InstallmentDetails.ToListAsync();
+            return AllInstallments;
         }
-
-        //public async Task<LoanPlanningViewModel> PostMainPage(LoanPlanningViewModel model)
-        //{
-        //    var group = await context.LoanGroups.Where(x=>x.LoanGroupId==model.loanGroup.LoanGroupId).SingleOrDefaultAsync();
-        //    if(group != null)
-        //    {
-        //        group.IsLoanPlanned = true;
-        //    }
-        //    foreach(var Loan in model.loanBasic)
-        //    {
-        //        var Installment = new InstallmentPayment
-        //        {
-        //            GroupId = Loan.GroupId,
-        //            MemberId = Loan.MemberId,
-        //            InstallmentCount = Loan.InstallmentCount,
-        //            InstalmentAmount = Loan.PerInstallmentAmount,
-        //            InstallmentDays = Loan.InstallmentDays
-        //        };
-        //        await context.Installments.AddAsync(Installment);
-        //    }
-        //    var response = await context.SaveChangesAsync();
-        //    return model;
-        //}
 
         public async Task<List<MemberBase>> MemberSelectForLoanPlan()
         {
@@ -73,63 +34,64 @@ namespace LoanService.Service
             return MemberList;
         }
 
-        public async Task<PersonalLoanViewModel> MemberLoanWithGroups(long MemberNID, int groupId)
+        public async Task<LoanPlanGroupSelectionViewModel> MemberGroupSelectForLoanPlan(long memberNid, int groupId)
         {
-            var memberDetails = await context.Members
-                .Where(x => x.NID == MemberNID)
+            var singleMember = await context.Members
+                .Where(x => x.NID == memberNid)
+                .Select(x => mapper.Map<SelectiveMemberDto>(x))
                 .SingleOrDefaultAsync();
-            var subPeriod = await context.SubmissionPeriods.ToListAsync();
-            var vm = new PersonalLoanViewModel
+
+            var vm = new LoanPlanGroupSelectionViewModel
             {
                 MemberContainingGroups = new(),
-                SelectedGroupId = groupId,
-                SelectedMemberNID = MemberNID,
-                SubmissionPeriod = new SelectList(subPeriod, "SubmissionPeriodDays", "SubmissionPeriodDays")
+                Member = singleMember
             };
+
             if (groupId == 0)
             {
                 var SelectedGroups = await context.MembersWithGroups
-                    .Where(x=>x.MemberNID== MemberNID && x.GroupTypeId == 1)
+                    .Where(x => x.MemberNID == memberNid && x.GroupTypeId == 1)
                     .Select(x => x.GroupId).ToListAsync();
                 foreach (var SinglegroupId in SelectedGroups)
                 {
-                    var SingleGroup = await context.LoanGroups
-                        .Where(x => x.LoanGroupId == SinglegroupId)
-                        .SingleOrDefaultAsync();
-                    if(SingleGroup != null)
-                    {
-                        vm.MemberContainingGroups.Add(SingleGroup);
-                    }
+                    var SingleGroup = mapper.Map<LoanGroupDto>(await context.LoanGroups
+                            .Where(x => x.LoanGroupId == SinglegroupId)
+                            .SingleOrDefaultAsync());
+                    vm.MemberContainingGroups.Add(SingleGroup);
                 }
             }
             else
             {
-                var SingleGroup = await context.LoanGroups
+                var SingleGroup = mapper.Map<LoanGroupDto>(await context.LoanGroups
                         .Where(x => x.LoanGroupId == groupId)
-                        .SingleOrDefaultAsync();
-                if (SingleGroup != null)
-                {
-                    vm.MemberContainingGroups.Add(SingleGroup);
-                }
+                        .SingleOrDefaultAsync());
+                vm.MemberContainingGroups.Add(SingleGroup);
             }
-            if(memberDetails != null)
-            {
-                vm.SelectedMember = memberDetails;
-            }
+
             return vm;
         }
 
-        public async Task<PersonalLoanViewModel> MemberLoanWithGroups(PersonalLoanViewModel model)
+        public async Task<PersonalLoanFormViewModel> MemberLoanWithGroups(long memberNID, int groupId)
         {
-            //if (model != null)
-            //{
-            //    var LoanDetails = new LoanBasic
-            //    {
-            //        LoanAmount = model.LoanBasic.
-            //    };
-            //    await context.LoanDetails.AddAsync();
-            //}
-            return null;
+            var memberDetails = await context.Members
+                    .Where(x => x.NID == memberNID)
+                    .Select(x => mapper.Map<SelectiveMemberDto>(x))
+                    .SingleOrDefaultAsync();
+            var group = await context.LoanGroups
+                    .Where(x => x.LoanGroupId == groupId)
+                    .Select(x => mapper.Map<LoanGroupDto>(x))
+                    .SingleOrDefaultAsync();
+            var subPeriod = await context.SubmissionPeriods.ToListAsync();
+            var vm = new PersonalLoanFormViewModel
+            {
+                SelectedGroupId = groupId,
+                SelectedGroupName = group.LoanGroupName,
+                SelectedMemberNID = memberNID,
+                SelectedMemberName = memberDetails.Name,
+                SubmissionPeriod = new SelectList(subPeriod, "SubmissionPeriodDays", "SubmissionPeriodDays")
+            };
+            return vm;
+
         }
 
     }

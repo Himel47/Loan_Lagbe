@@ -1,0 +1,325 @@
+﻿@using LoanData.ViewModels;
+
+@model LoanPlanGroupSelectionViewModel
+
+
+@functions {
+    int serial = 0;
+    int loanId = 1;
+
+    public int GenerateId()
+    {
+        return loanId++;
+    }
+    
+    public int SerialIncreaseByOne()
+    {
+        return serial++;
+    }
+}
+
+<style>
+    .rightPadding{
+        margin-right: -50px;
+    }
+
+    .cursorActive {
+        background-color: aqua;
+    }
+
+    .cursorActive:hover {
+        cursor: pointer;
+    }
+
+    .givingPadding {
+        padding: 0 75px;
+    }
+</style>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="row">
+            <h3>@Model.Member.Name</h3>
+            <span>Plan Groupwise Loan</span>
+        </div>
+        <a class="btn btn-outline-secondary btn-sm"
+            asp-action="MemberLoanIndex"
+            asp-controller="Loan">
+            Back to Previous Page
+        </a>
+    </div>
+    <hr />
+    <div class="mt-2 row gap-1">
+        @if(Model.MemberContainingGroups.Count!=0)
+        {
+            @*<table class="table table-hover table-borderless table-striped text-center">
+                @foreach (var loanGroup in Model.MemberContainingGroups)
+                {
+                    <tr>
+                        <th>@GenerateId()</th>
+                        <td>@loanGroup.LoanGroupId</td>
+                        <td>@loanGroup.LoanGroupName</td>
+                        <td>
+                            @Html.Partial("_PlanningLoanPartial", new PersonalLoanFormViewModel { SelectedGroupId = loanGroup.LoanGroupId, SelectedMemberNID = Model.Member.NID})
+                            <a class="btn btn-outline-success"
+                                asp-action="Index"
+                                asp-controller="Loan"
+                                asp-route-nid="@Model.Member.NID"
+                                asp-route-groupId="@loanGroup.LoanGroupId">
+                                Plan Loan
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>*@
+                    
+            @foreach(var group in Model.MemberContainingGroups)
+            {
+                <ul class="list-unstyled bg-light rounded border col-6 border-1 py-2 cursorActive">
+                    <li class="d-flex justify-content-between align-items-center givingPadding name-link">
+                        <h4> @(GenerateId()+". "+ group.LoanGroupName)</h4>
+
+                        <a class="btn btn-warning rightPadding"
+                            asp-action="Index"
+                            asp-route-nid="@Model.Member.NID"
+                            asp-route-groupId="@group.LoanGroupId">Plan Loan</a>
+
+                        @*<i class="bi bi-chevron-double-right"></i>
+                        <i class="bi bi-chevron-double-left" style="display:none;"></i>*@
+                    </li>
+                    <li>
+                        <div class="loan-portion" style="display:none">
+                            Hello there!
+                            
+                        </div>
+                        @*<input value="@serialincreasebyone()" hidden />*@
+                    </li>
+                </ul>
+            }
+        }
+        else if (Model.MemberContainingGroups.Count == 0)
+        {
+            <div class="text-center">
+                <h2 class="text-danger fw-bold">EMPTY</h2>
+                <span>This Member have not joined any Group Yet!</span>
+                <p>
+                    Click <a asp-action="MemberWithGroup"
+                             asp-controller="Group"
+                             asp-route-groupId="0"
+                             asp-route-groupTypeId="1">
+                        Here
+                    </a> to add Member to Groups
+                </p>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+@*@section scripts {
+    <script>
+        $("#loan-details-form").on("keyup keypress", function (e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        $(document).ready(function () {
+
+            $(".name-link").click(function () {
+                var description = $(this).closest("ul").find(".loan-portion");
+                var rightIcon = $(this).find(".bi-chevron-double-right");
+                var leftIcon = $(this).find(".bi-chevron-double-left");
+
+                description.slideToggle(()=>{
+                    if (description.is(":visible")) {
+                        rightIcon.hide();
+                        leftIcon.show();
+                    } else {
+                        leftIcon.hide();
+                        rightIcon.show();
+                    }
+                });
+            });
+
+            const primaryHelper = (serial) => {
+                let amount = $(`#LoanBasic_LoanAmount`).val();
+                let interestRate = $(`#LoanBasic_InterestRate`).val();
+                let period = $(`#LoanBasic_SubmissionTimeInMonth`).val();
+                let installmentInDays = Number.parseInt($(`#LoanBasic_InstallmentDays`).val());
+                let totalCharge = $(`#LoanBasic_TotalCharge`).val();
+                let processingFee = Number.parseInt($(`#LoanBasic_ProcessingFee`).val());
+                let extraCharge = Number.parseInt($(`#LoanBasic_ExtraCharge`).val());
+
+                let totalDays = 30 * Number.parseInt(period);
+                let totalInstallment = Math.floor(totalDays / installmentInDays);
+                let totalInterest = amount * Number.parseFloat(interestRate) / 100;
+                let totalAmount = Math.ceil(Number.parseInt(amount) + totalInterest + Number.parseInt(totalCharge));
+                let perInstallmentAmount = Math.ceil(totalAmount / totalInstallment);
+                let totalFees = processingFee + extraCharge;
+
+                console.log(totalAmount, perInstallmentAmount);
+
+                $(`#LoanBasic_PerInstallmentAmount`).val(perInstallmentAmount);
+                $(`#LoanBasic_InstallmentCount`).val(totalInstallment);
+                $(`#LoanBasic_RefundAmount`).val(totalAmount);
+                $(`#LoanBasic_TotalCharge`).val(totalFees);
+                $(`#totalInterest-${serial}`).val(totalInterest);
+            }
+
+            $(".amount").on("change keypress", (event) => {
+                let serial = event.target.dataset.serial;
+                primaryHelper(serial);
+            });
+
+            $(".submission-time").on("change keypress", (event) => {
+                let serial = event.target.dataset.serial;
+                primaryHelper(serial);
+            });
+
+            $(".installment-days").on("change keypress", (event) => {
+                let serial = event.target.dataset.serial;
+                primaryHelper(serial);
+            });
+
+            $(".interest-rate").on("change keypress", (event) => {
+                let serial = event.target.dataset.serial;
+                primaryHelper(serial);
+            });
+
+            $(".extraCharge").on("change keypress", (event) => {
+                let serial = event.target.dataset.serial;
+                primaryHelper(serial);
+            });
+
+        });
+
+        //$(".button-submit").on("click", (event)=>{
+        //    let serial = event.target.dataset.serial;
+        //    //var formId = "#form-" + serial;
+        //    //var form = document.querySelector(formId)
+
+        //    var formId = $(this).data("form-id");
+        //    var form = $("#" + formId);
+
+        //    console.log(form)
+        //    debugger
+
+        //    var formData = {};
+
+
+        //    form.find('input[data-column-name]').each(function () {
+        //        var columnName = $(this).data('column-name');
+        //        var columnValue = $(this).val();
+        //        formData[columnName] = columnValue;
+        //        debugger
+        //    });
+
+
+
+
+
+            //var inputs = form.querySelectorAll("input");
+            ////console.log(inputs)
+            ////debugger;
+            //inputs.forEach(function (input) {
+            //    //debugger;
+            //    if (!input.name.includes("VerificationToken")) {
+            //        var fieldName = input.name.replace(/LoanBasic\[\d+\]\./, "");
+            //        formData[fieldName] = input.value;
+            //    }
+            //});
+
+            //var selects = form.querySelectorAll("select")
+
+            //selects.forEach(function (select) {
+            //    var fieldName = select.name.replace(/LoanBasic\[\d+\]\./, "");
+            //    formData[fieldName] = select.value;
+            //})
+
+        //    console.log(formData)
+
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Api/Loans",
+        //        data: JSON.stringify(formData),
+        //        datatype: "json",
+        //        success: function (response) {
+        //            debugger;
+        //            console.log(response);
+        //        },
+        //        error: function (error) {
+        //            debugger;
+        //            console.log(error);
+        //        }
+        //    });
+
+
+        //})
+
+
+        //function submitForm(groupId) {
+        //    var formId = "#form-" + groupId;
+        //    var form = document.querySelector(formId)
+
+        //    console.log(formId)
+
+        //    var formData = {};
+
+        //    var inputs = form.querySelectorAll("input");
+        //    //console.log(inputs)
+        //    //debugger;
+        //    inputs.forEach(function (input) {
+        //        //debugger;
+        //        if(!input.name.includes("VerificationToken")){
+        //            var fieldName = input.name.replace(/LoanBasic\[\d+\]\./, "");
+        //            formData[fieldName] = input.value;
+        //        }
+        //    });
+
+        //    var selects = form.querySelectorAll("select")
+
+        //    selects.forEach(function (select) {
+        //        var fieldName = select.name.replace(/LoanBasic\[\d+\]\./, "");
+        //        formData[fieldName] = select.value;
+        //    })
+
+        //    console.log(JSON.stringify(formData))
+
+
+        //    //fetch("/api/Loans/", {
+        //    //    method: "post",
+        //    //    headers: {
+        //    //        "Content-Type": "application/json",
+        //    //        //'Content-Type': 'application/x-www-form-urlencoded',
+        //    //    },
+
+        //    //    body: formData
+        //    //}).then((res)=>{
+        //    //    console.log(res)
+        //    //}).catch((error)=>{
+        //    //    console.log(error)
+        //    //})
+
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Api/Loans",
+        //        data: JSON.stringify(formData),
+        //        datatype: "json",
+        //        success: function (response) {
+        //            debugger;
+        //            console.log(response);
+        //        },
+        //        error: function (error) {
+        //            debugger;
+        //            console.log(error);
+        //        }
+        //    });
+
+        //}
+
+    </script>
+}*@

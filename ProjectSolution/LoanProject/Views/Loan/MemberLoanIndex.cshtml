@@ -1,8 +1,4 @@
-﻿@using LoanData.Models.Member;
-
-
-@model List<MemberBase>
-
+﻿
 
 
 
@@ -19,27 +15,25 @@
         </a>
     </div>
     <hr />
-    <div class="card bg-transparent col-10 offset-1 text-center">
-        <input class="rounded text-center py-2 col-8 offset-2" type="text" placeholder="-- Search Member --" />
-        <hr />
-        <div class="col-8 offset-2">
-            <table class="table table-borderless table-striped mt-2 mb-4">
-                <thead class="text-center border-bottom">
+    <div class="card col-10 offset-1 text-center">
+        <div class="col-8 offset-2 p-3">
+            <table id="memberList" class="table table-borderless table-hover table-striped mt-2 mb-4">
+                <thead>
                     <tr>
-                        <th>NID</th>
-                        <th>Members</th>
+                        <th class="text-center">NID</th>
+                        <th class="text-center">Members</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(var member in Model)
+                    @*@foreach(var member in Model)
                     {
                         <tr>
                             <td>@member.NID</td>
                             <td>@member.Name</td>
                             <td>
                                 <a class="btn btn-warning text-black"
-                                    asp-action="PersonalLoan"
+                                    asp-action="Index"
                                     asp-controller="Loan"
                                     asp-route-nid="@member.NID"
                                     asp-route-groupId="0">
@@ -47,9 +41,44 @@
                                 </a>
                             </td>
                         </tr>
-                    }
+                    }*@
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+
+@section Scripts{
+    <script>
+
+        $(document).ready(function(){
+
+            var table = $("#memberList").DataTable({
+
+                ajax:{
+                    url: "/api/members",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "nid"
+                    },
+                    {
+                        data: "name"
+                    },
+                    {
+                        data: "nid",
+                        render: function(data){
+                            return "<a class='btn btn-warning text-black' href='/Loan/MemberLoanGroupIndex?nid=" + data + "&groupId=0' > Proceed </a>"
+                        }
+                    }
+                ]
+
+            })
+
+        })
+    </script>
+}
+
+

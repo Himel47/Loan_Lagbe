@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace LoanData.Models.Loan
 {
@@ -22,7 +16,7 @@ namespace LoanData.Models.Loan
         public int IncludedInterest { get; set; } = 0;
         public int ProcessingFee { get; set; } = 150;
         public int ExtraCharge { get; set; }
-        public int TotalCharge { get; set; } = 600;
+        public int TotalCharge { get; set; } = 120;
         public int RefundAmount { get; set; } = 0;
         public bool IsLoanPaymentComplete { get; set; } = false;
     }
