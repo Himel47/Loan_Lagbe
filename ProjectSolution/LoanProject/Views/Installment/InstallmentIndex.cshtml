@@ -4,7 +4,15 @@
 
 @model PersonalInstallmentViewModel
 
+@functions{
+    int id = 1;
 
+    public int GenerateId()
+    {
+        return id++;
+    }
+
+}
 
 
 <div class="container">
@@ -40,7 +48,7 @@
             @foreach (var installment in Model.PersonalInstallments)
             {
                 <tr>
-                    <td>@installment.Id</td>
+                    <td>@GenerateId()</td>
                     <td>@installment.LoanId</td>
                     <td>@installment.InstallmentId</td>
                     <td>@installment.GroupId</td>

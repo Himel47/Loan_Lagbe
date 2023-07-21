@@ -80,9 +80,9 @@
                         <h4> @(GenerateId()+". "+ group.LoanGroupName)</h4>
 
                         @{
-                            var isMatchedGroupId = Model.LoanTakenGroupIds.FindIndex(x => x == group.LoanGroupId);
+                            var isMatchedGroupId = Model.LoanTakenGroupIds.FirstOrDefault(x => x == group.LoanGroupId);
 
-                            if(isMatchedGroupId != 0)
+                            if(isMatchedGroupId == 0)
                             {
                                 <a class="btn btn-warning rightPadding"
                                     asp-action="Index"

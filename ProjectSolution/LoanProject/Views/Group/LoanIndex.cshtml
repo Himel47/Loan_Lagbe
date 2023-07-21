@@ -22,7 +22,6 @@
                         <th>Member Details</th>
                         <th>Total Loan Amount</th>
                         <th>Action</th>
-                        <th></th>
                     </tr>
                 </thead>
 
@@ -55,7 +54,7 @@
                                         asp-action="EditGroupInfo">Edit</a>
                                 </div>
                             </td>
-                            <td class="text-center">
+                            @*<td class="text-center">
                                 @if(group.IsLoanPlanned == false)
                                 {
                                     <a class="btn btn-warning"
@@ -69,7 +68,7 @@
                                 {
                                     <a class="btn btn-success cursor-not-allowed">Loan Planned</a>
                                 }
-                            </td>
+                            </td>*@
                         </tr>
                     }
                 </tbody>

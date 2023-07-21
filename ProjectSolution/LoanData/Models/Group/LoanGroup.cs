@@ -22,7 +22,7 @@ namespace LoanData.Models.Group
         public string Location { get; set; }
 
         public MemberBase? Member { get; set; }
-        public int TotalLoanAmount { get; set; } = 0;
+        public decimal TotalLoanAmount { get; set; } = 0;
         public bool IsLoanPlanned { get; set; } = false;
     }
 }

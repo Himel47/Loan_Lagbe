@@ -51,6 +51,12 @@ namespace LoanService.Service.Api
 
             await InstallmentSchedule(loan);
 
+            var group = await context.LoanGroups
+                .Where(x => x.LoanGroupId == loan.GroupId)
+                .SingleOrDefaultAsync();
+
+            group.TotalLoanAmount += loan.LoanAmount;
+
             await context.SaveChangesAsync();
 
             return new JsonResult("Loan Created Successfully!");

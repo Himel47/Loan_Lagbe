@@ -6,7 +6,11 @@
 @model MemberWithGroupViewModel
 
 <style>
+    #groupListing{
+        padding:11px 0;
+        border: none;
 
+    }
 </style>
 
 <div class="container-fluid">
@@ -31,7 +35,7 @@
         @if (Model.GroupId == 0 && Model.GroupTypeId != 0)
         {
             <div class="d-flex justify-content-between col-10 offset-1 gap-2">
-                <select name="GroupId" id="groupListing" class="form-select overflow-scroll border-1" asp-items="Model.AllGroups" aria-controls="scroll">
+                <select name="GroupId" id="groupListing" class="form-select border-0 px-1" asp-items="Model.AllGroups" aria-controls="scroll">
                     <option value="0">-- Select a Group Name --</option>
                 </select>
                 <button id="submit-button" class="btn btn-outline-primary col-4">Add to Group</button>
@@ -87,6 +91,8 @@
 {
     <script>
         $(document).ready(function(){
+
+            $("#groupListing").select2()
 
             let MembersArray = []
             let groupId;
