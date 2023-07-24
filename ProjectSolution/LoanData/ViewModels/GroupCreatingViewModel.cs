@@ -1,5 +1,4 @@
-﻿using LoanData.Models.Group;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace LoanData.ViewModels
@@ -7,10 +6,16 @@ namespace LoanData.ViewModels
     public class GroupCreatingViewModel
     {
         public int Id { get; set; }
-        public Group Group { get; set; }
+
+        [Required(ErrorMessage = "Group Name is Required!")]
+        public string NewGroupName { get; set; }
+
+        [Required(ErrorMessage = "Please give a location!")]
+        public string GroupLocation { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         [Required(ErrorMessage = "Please select a group type!")]
         public int GrouptypeId { get; set; }
-        public SelectList GroupTypeList { get; set; }
+        public SelectList? GroupTypeList { get; set; }
     }
 }

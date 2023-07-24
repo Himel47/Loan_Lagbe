@@ -1,9 +1,6 @@
-﻿using LoanData.Models.Group;
-using LoanData.ViewModels;
-using LoanService.Service;
+﻿using LoanData.ViewModels;
 using LoanService.ServiceInterface;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.Metrics;
 
 namespace LoanProject.Controllers
 {
@@ -35,31 +32,14 @@ namespace LoanProject.Controllers
         public async Task<IActionResult> AddGroup()
         {
             var groupCreation = await groupService.AddNewGroupAsync();
-            
-            return View(groupCreation);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> AddGroup(GroupCreatingViewModel model)
-        {
-            Console.Write(model.GrouptypeId);
-            if(model != null && model.GrouptypeId == 1)
-            {
-                var response = await groupService.AddNewLoanGroupAsync(model);
-                return RedirectToAction("MemberWithGroup", new { GroupId = response.Id, groupTypeId = response.GrouptypeId });
-            }
-            else if (model!=null)
-            {
-                var response = await groupService.AddNewCollectionGroupAsync(model);
-                return RedirectToAction("MemberWithGroup", new { GroupId = response.Id, groupTypeId = response.GrouptypeId });
-            }
-            return BadRequest("Something Went Wrong!");
+            return View(groupCreation);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetGroupDetails(int groupId, int groupTypeId)
         {
-            var response = await groupService.GetGroupDetailsAsync(groupId,groupTypeId);
+            var response = await groupService.GetGroupDetailsAsync(groupId, groupTypeId);
 
             if (response.LoanGroup == null && response.CollectionGroup == null)
             {
@@ -71,14 +51,14 @@ namespace LoanProject.Controllers
         [HttpGet]
         public async Task<IActionResult> GroupMemberList(int groupId, int groupTypeId)
         {
-            var response = await groupService.GroupMemberListAsync(groupId,groupTypeId);
+            var response = await groupService.GroupMemberListAsync(groupId, groupTypeId);
             return View(response);
         }
 
         [HttpGet]
-        public async Task<IActionResult> MemberWithGroup(int GroupId, int groupTypeId)
+        public async Task<IActionResult> MemberWithGroup(int groupId, int groupTypeId)
         {
-            var response = await groupService.AddMemberToGroupAsync(GroupId, groupTypeId);
+            var response = await groupService.AddMemberToGroupAsync(groupId, groupTypeId);
             return View(response);
         }
 
@@ -101,7 +81,7 @@ namespace LoanProject.Controllers
             {
                 return RedirectToAction("LoanIndex");
             }
-            else if(response.GroupTypeId == 2)
+            else if (response.GroupTypeId == 2)
             {
                 return RedirectToAction("CollectionIndex");
             }

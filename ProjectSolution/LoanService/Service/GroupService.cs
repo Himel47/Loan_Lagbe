@@ -1,4 +1,5 @@
-﻿using LoanData.DBContext;
+﻿using AutoMapper;
+using LoanData.DBContext;
 using LoanData.Models.Group;
 using LoanData.Models.Member;
 using LoanData.ViewModels;
@@ -11,9 +12,12 @@ namespace LoanService.Service
     public class GroupService : IGroupService
     {
         private readonly MyContext context;
-        public GroupService(MyContext context)
+        private readonly IMapper mapper;
+
+        public GroupService(MyContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
 
@@ -41,43 +45,13 @@ namespace LoanService.Service
             return vm;
         }
 
-        public async Task<GroupCreatingViewModel> AddNewLoanGroupAsync(GroupCreatingViewModel model)
-        {
-            var group = new LoanGroup
-            {
-                LoanGroupName = model.Group.GroupName,
-                Location = model.Group.Location,
-                CreatedAt = model.Group.CreatedAt
-            };
-            var loan = await context.LoanGroups.AddAsync(group);
-            context.SaveChanges();
-            var response = await context.LoanGroups.FirstOrDefaultAsync(x=>x.LoanGroupName == model.Group.GroupName);
-            model.Id = response.LoanGroupId;
-            return model;
-        }
-
-        public async Task<GroupCreatingViewModel> AddNewCollectionGroupAsync(GroupCreatingViewModel model)
-        {
-            var group = new CollectionGroup
-            {
-                CollectionGroupName = model.Group.GroupName,
-                Location = model.Group.Location,
-                CreatedAt = model.Group.CreatedAt
-            };
-            var loan = await context.CollectionGroups.AddAsync(group);
-            context.SaveChanges();
-            var response = await context.CollectionGroups.FirstOrDefaultAsync(x => x.CollectionGroupName == model.Group.GroupName);
-            model.Id = response.CollectionGroupId;
-            return model;
-        }
-
         public async Task<MemberWithGroupViewModel> AddMemberToGroupAsync(int GroupId, int groupTypeId)
         {
             var loanGroup = new LoanGroup();
             var collectionGroup = new CollectionGroup();
-            
+
             var vm = new MemberWithGroupViewModel();
-            
+
             if (groupTypeId == 1)
             {
                 loanGroup = await context.LoanGroups.FirstOrDefaultAsync(x => x.LoanGroupId == GroupId);
@@ -94,7 +68,7 @@ namespace LoanService.Service
                 }
                 vm.GroupTypeId = groupTypeId;
             }
-            else if(groupTypeId == 2)
+            else if (groupTypeId == 2)
             {
                 collectionGroup = await context.CollectionGroups.FirstOrDefaultAsync(x => x.CollectionGroupId == GroupId);
                 if (GroupId == 0)
@@ -113,7 +87,7 @@ namespace LoanService.Service
             else
             {
                 var allGroupTypes = await context.GroupTypes.ToListAsync();
-                vm.GroupTypes = new SelectList(allGroupTypes,"TypeId","GroupTypeName");
+                vm.GroupTypes = new SelectList(allGroupTypes, "TypeId", "GroupTypeName");
             }
             vm.MembersList = await context.Members.ToListAsync();
             return vm;
@@ -130,7 +104,7 @@ namespace LoanService.Service
             {
                 vm.LoanGroup = await context.LoanGroups.Where(x => x.LoanGroupId == id).FirstOrDefaultAsync();
             }
-            else if(groupTypeId == 2)
+            else if (groupTypeId == 2)
             {
                 vm.CollectionGroup = await context.CollectionGroups.Where(x => x.CollectionGroupId == id).FirstOrDefaultAsync();
             }
@@ -140,20 +114,29 @@ namespace LoanService.Service
         public async Task<MemberWithGroupViewModel> GroupMemberListAsync(int groupId, int groupTypeId)
         {
             var groupMembers = await context.MembersWithGroups
-                .Where(x=>x.GroupId == groupId && x.GroupTypeId == groupTypeId)
-                .Select(x=>x.MemberNID).ToListAsync();
+                .Where(x => x.GroupId == groupId && x.GroupTypeId == groupTypeId)
+                .Select(x => x.MemberNID).ToListAsync();
 
             var vm = new MemberWithGroupViewModel
             {
                 GroupId = groupId,
-                GroupTypeId= groupTypeId,
+                GroupTypeId = groupTypeId,
+                LoanPlannedMembers = new()
             };
             if (groupTypeId == 1)
             {
-                var group = await context.LoanGroups.Where(x=>x.LoanGroupId == groupId).SingleOrDefaultAsync();
+                var group = await context.LoanGroups.Where(x => x.LoanGroupId == groupId).SingleOrDefaultAsync();
+
+                var loanTakenMembers = await context.LoanPersonalInstallments
+                    .Where(x => x.GroupId == groupId)
+                    .Select(x => x.MemberId)
+                    .ToListAsync();
+
+                vm.LoanPlannedMembers = loanTakenMembers;
+
                 vm.GroupName = group.LoanGroupName;
             }
-            else if(groupTypeId == 2)
+            else if (groupTypeId == 2)
             {
                 var group = await context.CollectionGroups.Where(x => x.CollectionGroupId == groupId).SingleOrDefaultAsync();
                 vm.GroupName = group.CollectionGroupName;
@@ -217,7 +200,7 @@ namespace LoanService.Service
             await context.SaveChangesAsync();
             return model;
         }
-        
+
         public MemberWithGroupViewModel LoanGroupSelection()
         {
             return new MemberWithGroupViewModel

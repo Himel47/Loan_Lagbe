@@ -84,9 +84,31 @@
                 <img src="https://imagetolink.com/ib/VDF5FIy6qD.png" height="230" alt="VDF5FIy6qD" />
             </div>
         </div>
-        <div class="btn-group gap-2 col-7 justify-content-between">
-            <a class="btn btn-outline-secondary btn-sm rounded-end" asp-action="LoanIndex">Back to Group List</a>
-            <a class="btn btn-outline-info btn-sm rounded-start" asp-route-groupId="@Model.CollectionGroup.CollectionGroupId" asp-route-groupTypeId="2" asp-action="EditGroupInfo">Edit Details</a>
+        <div class="btn-group gap-3 col-5 justify-content-between">
+            @if (Model.GroupTypeId == 1)
+            {
+                <a class="btn btn-outline-secondary btn-sm rounded-end"
+                    asp-action="LoanIndex"
+                    asp-controller="Group">
+                    <i class="bi bi-backspace"></i>
+                    Back to Group List
+                </a>
+            }
+            else
+            {
+                <a class="btn btn-outline-secondary btn-sm rounded-end col-3"
+                    asp-action="CollectionIndex"
+                    asp-controller="Group">
+                    <i class="bi bi-backspace"></i>
+                    Back to Group List
+                </a>
+            }
+            <a class="btn btn-outline-info btn-sm rounded-start col-3"
+                asp-route-groupId="@Model.CollectionGroup.CollectionGroupId"
+                asp-route-groupTypeId="2"
+                asp-action="EditGroupInfo">
+                Edit Details
+            </a>
         </div>
     }
 </div>

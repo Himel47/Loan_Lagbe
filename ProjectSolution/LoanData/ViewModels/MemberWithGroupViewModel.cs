@@ -11,5 +11,6 @@ namespace LoanData.ViewModels
         public string? GroupName { get; set; }
         public SelectList? AllGroups { get; set; }
         public List<MemberBase>? MembersList { get; set; }
+        public List<long>? LoanPlannedMembers { get; set; }
     }
 }

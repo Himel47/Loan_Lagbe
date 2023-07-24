@@ -31,23 +31,25 @@
             <a class="btn btn-outline-danger btn-sm rounded" asp-action="CollectionIndex">Skip for Now</a>
         }
     </div>
-    <div class="mt-2">
-        @if (Model.GroupId == 0 && Model.GroupTypeId != 0)
-        {
-            <div class="d-flex justify-content-between col-10 offset-1 gap-2">
-                <select name="GroupId" id="groupListing" class="form-select border-0 px-1" asp-items="Model.AllGroups" aria-controls="scroll">
-                    <option value="0">-- Select a Group Name --</option>
-                </select>
-                <button id="submit-button" class="btn btn-outline-primary col-4">Add to Group</button>
+    <div class="my-2">
+        <div class="py-4">
+            <div class="d-flex justify-content-between align-items-center col-8 offset-2 gap-2">
+                @if (Model.GroupId == 0 && Model.GroupTypeId != 0)
+                {
+                        <select name="GroupId" id="groupListing" class="form-select border-0 px-1" asp-items="Model.AllGroups" aria-controls="scroll">
+                            <option value="0">-- Select a Group Name --</option>
+                        </select>
+                        <button id="submit-button" class="btn btn-outline-primary col-4">Add to Group</button>
+                }
+                else
+                {
+                    <button id="submit-button" class="btn btn-outline-primary col-4 offset-11">Add to Group</button>
+                }
             </div>
-        }
-        else
-        {
-            <button id="submit-button" class="btn btn-outline-primary col-3 offset-9">Add to Group</button>
-        }
+        </div>
         @if(Model.MembersList.Count != 0)
         {
-            <table class="table table-striped table-bordered mt-3">
+            <table class="table table-striped table-bordered mt-3" id="members-table">
                 <thead class="text-center bg-secondary">
                     <tr>
                         <th class="text-center">X</th>
@@ -92,6 +94,8 @@
     <script>
         $(document).ready(function(){
 
+            $("#members-table").DataTable()
+
             $("#groupListing").select2()
 
             let MembersArray = []
@@ -128,7 +132,7 @@
                     bootbox.alert("Please Select a Group First")
                 }
                 else if(MembersArray.length == 0){
-                    bootbox.alert("Please Select Members you Want to Add!")
+                    bootbox.alert("Please Select atleast A member you Want to Add!")
                 }
                 else{
                     $.ajax({

@@ -19,9 +19,8 @@ body {
     background-size: cover;
     background-position: center center;
     width: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    overscroll-behavior-y: contain;
+    overflow: scroll;
+    overscroll-behavior: contain;
     scrollbar-color: unset;
     scrollbar-width: thin;
     scrollbar-color: #888888 #ffffff;
@@ -37,5 +36,26 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
+    background-color: #888888;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: scroll;
+    overscroll-behavior-x: contain;
+    scrollbar-color: unset;
+    scrollbar-width: thin;
+    scrollbar-color: #888888 #ffffff;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background-color: #ffffff;
+}
+
+.table-container::-webkit-scrollbar-thumb {
     background-color: #888888;
 }

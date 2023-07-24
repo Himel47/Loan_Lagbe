@@ -14,12 +14,24 @@
     <hr />
     <div class="d-flex justify-content-between align-items-center mt-2">
         <h2 class="text-info">Members</h2>
-        <a class="btn btn-outline-secondary btn-sm"
-           asp-action="LoanIndex"
-           asp-controller="Group">
-            <i class="bi bi-backspace"></i>
-            Back to Group List
-        </a>
+        @if (Model.GroupTypeId == 1)
+        {
+            <a class="btn btn-outline-secondary btn-sm"
+                asp-action="LoanIndex"
+                asp-controller="Group">
+                <i class="bi bi-backspace"></i>
+                Back to Group List
+            </a>
+        }
+        else
+        {
+            <a class="btn btn-outline-secondary btn-sm"
+                asp-action="CollectionIndex"
+                asp-controller="Group">
+                <i class="bi bi-backspace"></i>
+                Back to Group List
+            </a>
+        }
     </div>
     <div class="col-10 offset-1 mt-5">
         @if (Model.MembersList.Count!=0)
@@ -50,13 +62,24 @@
                                        asp-route-nid="@member.NID">
                                         Details
                                     </a>
-                                    <a class="text-decoration-none text-danger"
-                                       asp-controller="Loan"
-                                       asp-action="Index"
-                                       asp-route-nid="@member.NID"
-                                       asp-route-groupId="@Model.GroupId">
-                                        Loan Plan
-                                    </a>
+                                    @{
+                                        var isMatchedNID = Model.LoanPlannedMembers.FirstOrDefault(x => x == member.NID);
+
+                                        if(isMatchedNID == 0)
+                                        {
+                                            <a class="text-decoration-none text-danger"
+                                                asp-controller="Loan"
+                                                asp-action="Index"
+                                                asp-route-nid="@member.NID"
+                                                asp-route-groupId="@Model.GroupId">
+                                                Loan Plan
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-success btn-sm">Loan Planned</button>
+                                        }
+                                    }
                                 </td>
                             }
                             else
