@@ -68,7 +68,7 @@
         <tbody class="py-2 text-center">
             <input asp-for="SelectedMemberNID" value="@Model.SelectedMemberNID" hidden>
             <tr>
-                <input data-column-name="MemberId" asp-for="LoanBasic.MemberId" value="@Model.SelectedMemberNID" hidden>
+                <input data-column-name="MemberId" asp-for="LoanBasic.MemberNID" value="@Model.SelectedMemberNID" hidden>
                 <input data-column-name="GroupId" asp-for="LoanBasic.GroupId" value="@Model.SelectedGroupId" hidden>
                 <td class="amount">
                     <input data-column-name="LoanAmount" asp-for="LoanBasic.LoanAmount" type="number" class="input-size" min="1" value="10000" />

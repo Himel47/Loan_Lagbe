@@ -46,8 +46,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Loan ID</th>
-                        <th>Group Id</th>
-                        <th>Member NID</th>
+                        <th>Group</th>
+                        <th>Member</th>
                         <th>Loan Due Date</th>
                         <th>Status</th>
                     </tr>
@@ -59,8 +59,8 @@
                         <tr>
                             <td>@installment.Id</td>
                             <td>@installment.LoanId</td>
-                            <td>@installment.GroupId</td>
-                            <td>@installment.MemberId</td>
+                            <td>@installment.GroupName</td>
+                            <td>@installment.MemberName</td>
                             <td>@installment.EndTime.ToString("dd/MM/yyyy")</td>
                             @if (installment.IsPaid == false && installment.PaidAmount != 0)
                             {

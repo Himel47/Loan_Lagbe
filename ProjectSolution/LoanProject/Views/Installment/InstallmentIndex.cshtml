@@ -1,23 +1,32 @@
 ﻿
-@using LoanData.ViewModels;
+@using LoanData.Models.Loan;
 
-
-@model PersonalInstallmentViewModel
+@model List<InstallmentPayment>
 
 @functions{
     int id = 1;
 
-    public int GenerateId()
+    public string MemberName()
     {
-        return id++;
+        var MemberName = Model[0].MemberName;
+
+        return MemberName;
     }
+
+    public string GroupName()
+    {
+        var GroupName = Model[0].GroupName;
+
+        return GroupName;
+    }
+
 
 }
 
 
 <div class="container">
     <div class="d-flex justify-content-between align-items-center">
-        <h2>Member: <u>@Model.MemberName</u><br />Group: <u>@Model.GroupName</u></h2>
+        <h2>Member: <u>@MemberName</u><br />Group: <u>@GroupName</u></h2>
         <a class="btn btn-outline-secondary btn-sm"
             asp-action="LoanIndex"
             asp-controller="Loan">
@@ -30,10 +39,8 @@
     <table class="table table-striped table-bordered table-hover">
         <thead class="text-center bg-secondary">
             <tr>
-                <th>ID</th>
-                <th>Loan ID</th>
                 <th>Installment ID</th>
-                <th>Group Id</th>
+                <th>Group</th>
                 <th>Member NID</th>
                 <th>Required Amount</th>
                 <th>Paid Amount</th>
@@ -45,19 +52,17 @@
         </thead>
 
         <tbody class="p-3 text-center align-items-center">
-            @foreach (var installment in Model.PersonalInstallments)
+            @foreach (var installment in Model)
             {
                 <tr>
-                    <td>@GenerateId()</td>
-                    <td>@installment.LoanId</td>
                     <td>@installment.InstallmentId</td>
-                    <td>@installment.GroupId</td>
-                    <td>@installment.MemberId</td>
+                    <td>@installment.GroupName</td>
+                    <td>@installment.MemberName</td>
                     <td>@installment.InstalmentAmount</td>
                     <td>@installment.PaidAmount</td>
                     <td>@installment.RemainingAmount</td>
-                    <td>@installment.StartTime.ToLongDateString()</td>
-                    <td>@installment.EndTime.ToLongDateString()</td>
+                    <td>@installment.StartTime.ToString("dd-MM-yyyy")</td>
+                    <td>@installment.EndTime.ToString("dd-MM-yyyy")</td>
                     @if (installment.StartTime.Date > DateTime.Now.Date)
                     {
                         <td>
@@ -90,7 +95,7 @@
                                        asp-action="InstallmentPayment"
                                        asp-controller="Installment"
                                        asp-route-groupId="@installment.GroupId"
-                                       asp-route-nid="@installment.MemberId"
+                                       asp-route-nid="@installment.MemberNID"
                                        asp-route-loanId="@installment.LoanId"
                                        asp-route-installmentId="@installment.InstallmentId">
                                         Pay
@@ -104,7 +109,7 @@
                                        asp-action="InstallmentPayment"
                                        asp-controller="Installment"
                                        asp-route-groupId="@installment.GroupId"
-                                       asp-route-nid="@installment.MemberId"
+                                       asp-route-nid="@installment.MemberNID"
                                        asp-route-loanId="@installment.LoanId"
                                        asp-route-installmentId="@installment.InstallmentId">
                                         Pay Remaining

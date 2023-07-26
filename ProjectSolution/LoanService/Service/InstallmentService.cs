@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using LoanData.DBContext;
-using LoanData.DTOs;
 using LoanData.Models.Loan;
-using LoanData.ViewModels;
 using LoanService.ServiceInterface;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,34 +23,15 @@ namespace LoanService.Service
             return response;
         }
 
-        public async Task<PersonalInstallmentViewModel> PersonalLoanSchedule(int groupId, long nid, int loanId)
+        public async Task<List<InstallmentPayment>> PersonalLoanSchedule(int groupId, long nid, int loanId)
         {
             var response = await context.LoanPersonalInstallments
                 .Where(x => x.GroupId == groupId &&
                     x.LoanId == loanId &&
-                    x.MemberId == nid)
+                    x.MemberNID == nid)
                 .ToListAsync();
 
-            var member = await context.Members
-                .Where(x => x.NID == nid)
-                .Select(x => mapper.Map<SelectiveMemberDto>(x))
-                .SingleOrDefaultAsync();
-
-            var group = await context.LoanGroups
-                .Where(x => x.LoanGroupId == groupId)
-                .Select(x => mapper.Map<LoanGroupDto>(x))
-                .SingleOrDefaultAsync();
-
-            var vm = new PersonalInstallmentViewModel
-            {
-                PersonalInstallments = new(),
-                MemberName = member.Name,
-                GroupName = group.LoanGroupName
-            };
-
-            vm.PersonalInstallments = response;
-
-            return vm;
+            return response;
         }
 
         public async Task<InstallmentPayment> SubmitInstallment(int groupId, long nid, int loanId, int installmentId)
@@ -61,7 +40,7 @@ namespace LoanService.Service
                 .Where(x => x.GroupId == groupId &&
                     x.LoanId == loanId &&
                     x.InstallmentId == installmentId &&
-                    x.MemberId == nid)
+                    x.MemberNID == nid)
                 .SingleOrDefaultAsync();
 
             if (response == null)

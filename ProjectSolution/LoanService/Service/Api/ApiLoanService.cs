@@ -27,20 +27,22 @@ namespace LoanService.Service.Api
             // InstallmentDetails table
             var Loan = new Installment
             {
-                GroupId = loan.GroupId,
-                MemberId = loan.MemberId,
                 InstallmentCount = loan.InstallmentCount,
                 InstallmentDays = loan.InstallmentDays,
                 StartTime = DateTime.Now,
                 EndTime = DateTime.Now.AddMonths(loan.SubmissionTimeInMonth),
             };
+            Loan.GroupId = loan.GroupId;
+            Loan.MemberNID = loan.MemberNID;
+
+
             await context.InstallmentDetails.AddAsync(Loan);
             await context.SaveChangesAsync();
 
             // LoanDetails table
             var thisLoanId = await context.InstallmentDetails
                 .Where(x => x.GroupId == Loan.GroupId &&
-                    x.MemberId == Loan.MemberId)
+                    x.MemberNID == Loan.MemberNID)
                 .Select(x => x.Id)
                 .SingleOrDefaultAsync();
 
@@ -81,12 +83,12 @@ namespace LoanService.Service.Api
                     InstalmentAmount = loan.PerInstallmentAmount,
                     PaidAmount = 0,
                     RemainingAmount = loan.PerInstallmentAmount,
-                    GroupId = loan.GroupId,
-                    MemberId = loan.MemberId,
                     StartTime = perInstallmentStartTime,
                     EndTime = perInstallmentEndTime,
                     InstallmentId = counter
                 };
+                installment.GroupId = loan.GroupId;
+                installment.MemberNID = loan.MemberNID;
 
 
                 await context.LoanPersonalInstallments.AddAsync(installment);

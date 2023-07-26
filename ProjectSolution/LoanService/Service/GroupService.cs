@@ -129,7 +129,7 @@ namespace LoanService.Service
 
                 var loanTakenMembers = await context.LoanPersonalInstallments
                     .Where(x => x.GroupId == groupId)
-                    .Select(x => x.MemberId)
+                    .Select(x => x.MemberNID)
                     .ToListAsync();
 
                 vm.LoanPlannedMembers = loanTakenMembers;

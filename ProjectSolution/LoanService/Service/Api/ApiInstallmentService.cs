@@ -27,7 +27,7 @@ namespace LoanService.Service.Api
             }
 
             var response = await context.LoanPersonalInstallments
-                .Where(x => x.MemberId == installment.MemberId &&
+                .Where(x => x.MemberNID == installment.MemberNID &&
                     x.GroupId == installment.GroupId &&
                     x.LoanId == installment.LoanId &&
                     x.InstallmentId == installment.InstallmentId)

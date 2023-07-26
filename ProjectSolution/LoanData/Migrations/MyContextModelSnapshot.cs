@@ -129,14 +129,22 @@ namespace LoanData.Migrations
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
 
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("InstallmentCount")
                         .HasColumnType("int");
 
                     b.Property<int>("InstallmentDays")
                         .HasColumnType("int");
 
-                    b.Property<long>("MemberId")
+                    b.Property<long>("MemberNID")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("MemberName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Paid")
                         .HasColumnType("bit");
@@ -163,6 +171,10 @@ namespace LoanData.Migrations
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
 
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("InstallmentId")
                         .HasColumnType("int");
 
@@ -175,8 +187,12 @@ namespace LoanData.Migrations
                     b.Property<long>("LoanId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("MemberId")
+                    b.Property<long>("MemberNID")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("MemberName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PaidAmount")
                         .HasColumnType("int");
@@ -209,6 +225,10 @@ namespace LoanData.Migrations
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
 
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("IncludedInterest")
                         .HasColumnType("int");
 
@@ -227,8 +247,12 @@ namespace LoanData.Migrations
                     b.Property<int>("LoanAmount")
                         .HasColumnType("int");
 
-                    b.Property<long>("MemberId")
+                    b.Property<long>("MemberNID")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("MemberName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PerInstallmentAmount")
                         .HasColumnType("int");

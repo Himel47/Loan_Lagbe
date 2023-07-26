@@ -38,6 +38,11 @@
         align-items: center;
     }
 
+    .readonly-input {
+        background-color: lightgrey !important;
+        border: none;
+    }
+
     .installmentSelect {
         font-size: 19px;
     }
@@ -50,7 +55,16 @@
 
 
 Hello there!
-<h2>Member: <u>@Model.SelectedMemberName</u><br />Group: <u>@Model.SelectedGroupName</u></h2>
+<div class="d-flex justify-content-between align-items-center mx-2">
+    <h2>Member: <u>@Model.SelectedMemberName</u><br />Group: <u>@Model.SelectedGroupName</u></h2>
+    <a class="btn btn-outline-secondary btn-sm"
+        asp-action="GroupMemberList"
+        asp-controller="Group"
+        asp-route-groupId="@Model.SelectedGroupId"
+        asp-route-groupTypeId="1">
+        Back to Group Member Page
+    </a>
+</div>
 <hr />
 <hr />
 
@@ -75,7 +89,7 @@ Hello there!
         <tbody class="py-2 text-center">
             <input asp-for="SelectedMemberNID" value="@Model.SelectedMemberNID" hidden>
             <tr>
-                <input asp-for="LoanBasic.MemberId" value="@Model.SelectedMemberNID" hidden>
+                <input asp-for="LoanBasic.MemberNID" value="@Model.SelectedMemberNID" hidden>
                 <input asp-for="LoanBasic.GroupId" value="@Model.SelectedGroupId" hidden>
                 <td>
                     @Model.SelectedGroupId
@@ -90,28 +104,28 @@ Hello there!
                     <select class="input-size installmentSelect" asp-items="Model.SubmissionPeriod" asp-for="LoanBasic.InstallmentDays"></select>
                 </td>
                 <td class="installmentCount">
-                    <input asp-for="LoanBasic.InstallmentCount" type="number" class="input-size" min="1" value="25" readonly />
+                    <input asp-for="LoanBasic.InstallmentCount" type="number" class="input-size readonly-input" min="1" value="25" readonly />
                 </td>
                 <td class="interest-rate">
                     <input asp-for="LoanBasic.InterestRate" type="number" class="input-size" min="1" value="8" />
                 </td>
                 <td class="processingFee">
-                    <input asp-for="LoanBasic.ProcessingFee" type="number" class="input-size" min="0" value="120" readonly />
+                    <input asp-for="LoanBasic.ProcessingFee" type="number" class="input-size readonly-input" min="0" value="120" readonly />
                 </td>
                 <td class="extraCharge">
                     <input asp-for="LoanBasic.ExtraCharge" type="number" class="input-size" min="0" value="0" />
                 </td>
                 <td class="totalInterest">
-                    <input asp-for="LoanBasic.IncludedInterest" id="totalInterest" class="input-size" value="800" readonly />
+                    <input asp-for="LoanBasic.IncludedInterest" id="totalInterest" class="input-size readonly-input" value="800" readonly />
                 </td>
                 <td class="totalCharge">
-                    <input asp-for="LoanBasic.TotalCharge" type="number" class="input-size" min="0" value="120" readonly />
+                    <input asp-for="LoanBasic.TotalCharge" type="number" class="input-size readonly-input" min="0" value="120" readonly />
                 </td>
                 <td class="totalRefundAmount">
-                    <input asp-for="LoanBasic.RefundAmount" type="number" class="input-size" value="10920" readonly />
+                    <input asp-for="LoanBasic.RefundAmount" type="number" class="input-size readonly-input" value="10920" readonly />
                 </td>
                 <td class="perInstallmentAmount">
-                    <input asp-for="LoanBasic.PerInstallmentAmount" type="number" class="input-size" value="437" readonly />
+                    <input asp-for="LoanBasic.PerInstallmentAmount" type="number" class="input-size readonly-input" value="437" readonly />
                 </td>
             </tr>
         </tbody>

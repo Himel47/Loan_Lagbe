@@ -41,10 +41,10 @@ namespace LoanService.Service
                 .Select(x => mapper.Map<SelectiveMemberDto>(x))
                 .SingleOrDefaultAsync();
 
-            var groupIds = await context.InstallmentDetails
-                .Where(x => x.MemberId == memberNid)
-                .Select(x => x.GroupId)
-                .ToListAsync();
+            //var groupIds = await context.InstallmentDetails
+            //    .Where(x => x.MemberId == memberNid)
+            //    .Select(x => x.GroupId)
+            //    .ToListAsync();
 
             var vm = new LoanPlanGroupSelectionViewModel
             {
@@ -52,7 +52,7 @@ namespace LoanService.Service
                 LoanTakenGroupIds = new(),
                 Member = singleMember
             };
-            vm.LoanTakenGroupIds = groupIds;
+            //vm.LoanTakenGroupIds = groupIds;
 
             if (groupId == 0)
             {
