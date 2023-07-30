@@ -1,4 +1,5 @@
-﻿using LoanService.ServiceInterface;
+﻿using LoanData.Models.Loan;
+using LoanService.ServiceInterface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoanProject.Controllers
@@ -40,6 +41,34 @@ namespace LoanProject.Controllers
             var response = await loanService.MemberSelectForLoanPlan();
             return View(response);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GroupSelection()
+        {
+            var response = await loanService.SelectingGroupForLoan();
+            return View(response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GroupLoanPlan(int groupId)
+        {
+            var response = await loanService.GroupLoanPlan(groupId);
+            return View(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GroupLoan(IList<LoanBasic> loans)
+        {
+            if (loans.Count == 0)
+            {
+                return BadRequest();
+            }
+
+            var response = await loanService.GroupLoanPlanSubmit(loans);
+            return View(response);
+        }
+
+
 
     }
 }

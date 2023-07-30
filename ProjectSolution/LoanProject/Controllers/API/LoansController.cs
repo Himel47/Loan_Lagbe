@@ -31,7 +31,7 @@ namespace LoanProject.Controllers.API
                 return new JsonResult(BadRequest());
             }
 
-            return new JsonResult(Ok("Loan Provided and\nSchedule Created Successfully!"));
+            return new JsonResult(Ok("Loan Provided and Schedule Created Successfully!"));
         }
         //LoanPlanningViewModel model
 

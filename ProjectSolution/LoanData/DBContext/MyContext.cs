@@ -22,5 +22,6 @@ namespace LoanData.DBContext
         public DbSet<LoanPaidDetails> LoanPaymentDetails { get; set; }
         public DbSet<InstallmentPayment> LoanPersonalInstallments { get; set; }
         public DbSet<Installment> InstallmentDetails { get; set; }
+        public DbSet<GroupLoan> GroupLoans { get; set; }
     }
 }

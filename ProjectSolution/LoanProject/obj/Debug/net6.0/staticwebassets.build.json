@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "I9OxawcFzYzKjkex+AVKaKUgZKizym/2grYZenu2weE=",
+  "Hash": "7mEVQQniTPfgVLO4yaf6bvq0j/9lgB1paCdbLrvDilw=",
   "Source": "LoanProject",
   "BasePath": "_content/LoanProject",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\BS358\\Documents\\Loan_Lagbe\\ProjectSolution\\LoanProject\\wwwroot\\css\\typeahead.css",
+      "SourceId": "LoanProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\BS358\\Documents\\Loan_Lagbe\\ProjectSolution\\LoanProject\\wwwroot\\",
+      "BasePath": "_content/LoanProject",
+      "RelativePath": "css/typeahead.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\typeahead.css"
     },
     {
       "Identity": "C:\\Users\\BS358\\Documents\\Loan_Lagbe\\ProjectSolution\\LoanProject\\wwwroot\\favicon.ico",
@@ -1188,6 +1205,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\BS358\\Documents\\Loan_Lagbe\\ProjectSolution\\LoanProject\\wwwroot\\typeahead.bundle.js",
+      "SourceId": "LoanProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\BS358\\Documents\\Loan_Lagbe\\ProjectSolution\\LoanProject\\wwwroot\\",
+      "BasePath": "_content/LoanProject",
+      "RelativePath": "typeahead.bundle.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\typeahead.bundle.js"
     }
   ]
 }

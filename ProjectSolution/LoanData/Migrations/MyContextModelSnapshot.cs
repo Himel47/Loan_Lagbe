@@ -115,6 +115,45 @@ namespace LoanData.Migrations
                     b.ToTable("LoanGroups");
                 });
 
+            modelBuilder.Entity("LoanData.Models.Loan.GroupLoan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("GroupLoanId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsLoanRunning")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("MemberNID")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("MemberName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GroupLoans");
+                });
+
             modelBuilder.Entity("LoanData.Models.Loan.Installment", b =>
                 {
                     b.Property<int>("Id")

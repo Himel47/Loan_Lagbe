@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "C:\\Users\\BS358\\Documents\\Loan_Lagbe\\ProjectSolution\\LoanProject\\wwwroot\\css\\typeahead.css",
+      "PackagePath": "staticwebassets\\css\\typeahead.css"
+    },
+    {
       "Id": "C:\\Users\\BS358\\Documents\\Loan_Lagbe\\ProjectSolution\\LoanProject\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
@@ -271,6 +275,10 @@
     {
       "Id": "C:\\Users\\BS358\\Documents\\Loan_Lagbe\\ProjectSolution\\LoanProject\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\BS358\\Documents\\Loan_Lagbe\\ProjectSolution\\LoanProject\\wwwroot\\typeahead.bundle.js",
+      "PackagePath": "staticwebassets\\typeahead.bundle.js"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.LoanProject.Microsoft.AspNetCore.StaticWebAssets.props",

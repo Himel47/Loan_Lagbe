@@ -23,6 +23,7 @@
                             <th>Member Details</th>
                             <th>Total Loan Amount</th>
                             <th>Action</th>
+                            <th></th>
                         </tr>
                     </thead>
 
@@ -54,6 +55,14 @@
                                            asp-route-groupTypeId="1"
                                            asp-action="EditGroupInfo">Edit</a>
                                     </div>
+                                </td>
+                                <td>
+                                    <a class="btn btn-warning btn-sm"
+                                       asp-action="GroupLoanPlan"
+                                       asp-controller="Loan"
+                                       asp-route-groupId="@group.LoanGroupId">
+                                        Plan Loan
+                                    </a>
                                 </td>
                                 @*<td class="text-center">
                         @if(group.IsLoanPlanned == false)

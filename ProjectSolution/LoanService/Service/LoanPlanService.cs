@@ -101,5 +101,126 @@ namespace LoanService.Service
 
         }
 
+        public async Task<List<LoanGroupDto>> SelectingGroupForLoan()
+        {
+            var response = await context.LoanGroups
+                .Select(x => mapper.Map<LoanGroupDto>(x))
+                .ToListAsync();
+
+            return response;
+        }
+
+        public async Task<GroupLoanFormViewModel> GroupLoanPlan(int groupId)
+        {
+            var group = await context.LoanGroups
+                .Where(x => x.LoanGroupId == groupId)
+                .Select(x => mapper.Map<LoanGroupDto>(x))
+                .SingleOrDefaultAsync();
+
+            var groupMemberNids = await context.MembersWithGroups
+                .Where(x => x.GroupId == groupId &&
+                    x.GroupTypeId == 1)
+                .Select(x => x.MemberNID)
+                .ToListAsync();
+
+            var submissionPeriod = await context.SubmissionPeriods.ToListAsync();
+
+            var vm = new GroupLoanFormViewModel
+            {
+                SelectedGroupId = group.LoanGroupId,
+                SelectedGroupName = group.LoanGroupName,
+                GroupMemebrs = new(),
+                SubmissionPeriod = new SelectList(submissionPeriod, "SubmissionPeriodDays", "SubmissionPeriodDays")
+            };
+
+            foreach (var member in groupMemberNids)
+            {
+                var memberDetails = await context.Members
+                    .Where(x => x.NID == member)
+                    .Select(x => mapper.Map<SelectiveMemberDto>(x))
+                    .SingleOrDefaultAsync();
+                if (memberDetails != null)
+                {
+                    vm.GroupMemebrs.Add(memberDetails);
+                }
+
+            }
+
+            return vm;
+        }
+
+        public async Task<IList<LoanBasic>> GroupLoanPlanSubmit(IList<LoanBasic> loans)
+        {
+            decimal totalLoan = 0;
+            foreach (var loan in loans)
+            {
+                totalLoan += loan.LoanAmount;
+                loan.StartTime = DateTime.Now;
+                loan.EndTime = DateTime.Now.AddMonths(loan.SubmissionTimeInMonth);
+
+                await context.LoanDetails.AddAsync(loan);
+
+                var installment = new Installment
+                {
+                    GroupId = loan.GroupId,
+                    GroupName = loan.GroupName,
+                    MemberNID = loan.MemberNID,
+                    MemberName = loan.MemberName,
+                    StartTime = loan.StartTime,
+                    EndTime = loan.EndTime,
+                    InstallmentCount = loan.InstallmentCount,
+                    InstallmentDays = loan.InstallmentDays
+                };
+                await context.InstallmentDetails.AddAsync(installment);
+
+            }
+
+            var loanGroup = await context.LoanGroups
+                .Where(x => x.LoanGroupId == loans[0].GroupId)
+                .SingleOrDefaultAsync();
+            loanGroup.TotalLoanAmount = totalLoan;
+
+            await InstallmentCreation(loans);
+
+            await context.SaveChangesAsync();
+
+            return loans;
+        }
+
+        public async Task<IList<LoanBasic>> InstallmentCreation(IList<LoanBasic> loans)
+        {
+            var loanGroup = await context.LoanDetails.
+                Where(x => x.GroupId == loans[0].GroupId)
+                .Select(x => x.LoanId)
+                .SingleOrDefaultAsync();
+
+            foreach (var loan in loans)
+            {
+
+                for (int i = 1; i < loan.InstallmentCount; i++)
+                {
+                    var installmentPayment = new InstallmentPayment
+                    {
+                        GroupId = loan.GroupId,
+                        GroupName = loan.GroupName,
+                        MemberNID = loan.MemberNID,
+                        MemberName = loan.MemberName,
+                        StartTime = loan.StartTime,
+                        EndTime = loan.EndTime,
+                        InstallmentId = i,
+                        InstalmentAmount = loan.PerInstallmentAmount,
+                        PaidAmount = 0,
+                        RemainingAmount = loan.PerInstallmentAmount
+                    };
+
+                    await context.LoanPersonalInstallments.AddAsync(installmentPayment);
+                }
+            }
+
+            return loans;
+        }
+
+
+
     }
 }
